@@ -21,7 +21,7 @@
             else if (GoGame.Text.Equals("Zatwierdź"))
             {
                 SetMenu();
-                //TODO:: zmiana ustawień
+                //TODO:: zmiana języka w aplikacji
             }
             else if(GoGame.Text.Equals("Graj z botem"))
             {
