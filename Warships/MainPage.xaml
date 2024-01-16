@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Warships.MainPage"
+             >
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Image Grid.RowSpan="2" Grid.ColumnSpan="2" Source="battleship.png" Aspect="AspectFill"/>
+        <StackLayout Grid.Row="1">
+            <Label
+                Margin="20"
+                Text="Warship War"
+                TextColor="Black"
+                FontSize="32"
+                FontAttributes="Bold,Italic"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="1.5*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                
+                <ImageButton 
+                    Aspect="AspectFill"
+                    HeightRequest="80"
+                    WidthRequest="80"
+                    Source="ship.png"
+                    IsVisible="false"
+                    x:Name="ReturnButton"
+                    Clicked="ReturnMenu"/>
+                
+                <Button
+                    Grid.Column="1"
+                    Margin="20"
+                    Text="Graj"
+                    Style="{StaticResource MenuButton}"
+                    x:Name="GoGame"
+                    Clicked="GoGameOption"
+                    />
+                
+                <Button
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    Margin="20"
+                    Text="Ustawienia"
+                    Style="{StaticResource MenuButton}"
+                    Clicked="SettingOption"
+                    x:Name="Setting"
+                    />
+
+                <RadioButton
+                    Grid.Column="0"
+                    Grid.Row="1"
+                    Margin="20"
+                    GroupName="Lang"
+                    Value="pl"
+                    IsVisible="false"
+                    x:Name="CheckPl"
+                    HorizontalOptions="End"
+                    />
+
+                <Label
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    Margin="30"
+                    Text="Polski"
+                    Style="{StaticResource MenuButton}"
+                    IsVisible="false"
+                    x:Name="TextPl"/>
+
+                <RadioButton
+                    Grid.Column="0"
+                    Grid.Row="2"
+                    Margin="20"
+                    GroupName="Lang"
+                    Value="en"
+                    IsVisible="false"
+                    x:Name="CheckEn"
+                    HorizontalOptions="End"/>
+
+                <Label
+                    Margin="30"
+                    Grid.Column="1"
+                    Grid.Row="2"
+                    Text="Angielski"
+                    Style="{StaticResource MenuButton}"
+                    IsVisible="false"
+                    x:Name="TextEn"/>
+
+            </Grid>
+
+        </StackLayout>
+        
+    </Grid>
+
+</ContentPage>
