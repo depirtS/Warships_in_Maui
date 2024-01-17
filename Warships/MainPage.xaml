@@ -67,10 +67,11 @@
                     Grid.Row="1"
                     Margin="20"
                     GroupName="Lang"
-                    Value="pl"
+                    Value="0"
                     IsVisible="false"
                     x:Name="CheckPl"
                     HorizontalOptions="End"
+                    IsChecked="True"
                     />
 
                 <Label
@@ -87,11 +88,11 @@
                     Grid.Row="2"
                     Margin="20"
                     GroupName="Lang"
-                    Value="en"
+                    Value="1"
                     IsVisible="false"
                     x:Name="CheckEn"
                     HorizontalOptions="End"/>
-
+                
                 <Label
                     Margin="30"
                     Grid.Column="1"
@@ -100,7 +101,6 @@
                     Style="{StaticResource MenuButton}"
                     IsVisible="false"
                     x:Name="TextEn"/>
-
             </Grid>
 
         </StackLayout>

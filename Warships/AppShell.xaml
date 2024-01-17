@@ -11,4 +11,11 @@
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
 
+    <ShellContent
+        ContentTemplate="{DataTemplate local:_5x5}"
+        Route="5x5" />
+
+    <ShellContent
+        ContentTemplate="{DataTemplate local:_7x7}"
+        Route="7x7" />
 </Shell>
