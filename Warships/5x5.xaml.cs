@@ -6,4 +6,9 @@ public partial class _5x5 : ContentPage
 	{
 		InitializeComponent();
 	}
+
+    private void Selected_Field(object sender, EventArgs e)
+    {
+
+    }
 }

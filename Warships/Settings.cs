@@ -31,7 +31,7 @@ namespace Warships
             Lang[1, 3] = "Play with player";
             Lang[1, 4] = "Board 5x5";
             Lang[1, 5] = "Board 7x7";
-            Lang[1, 6] = "Aplly changes";
+            Lang[1, 6] = "Apply changes";
             Lang[1, 7] = "Polish";
             Lang[1, 8] = "English";
         }
