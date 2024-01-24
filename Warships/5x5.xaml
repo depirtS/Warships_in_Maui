@@ -4,18 +4,61 @@
              x:Class="Warships._5x5"
              Title="_5x5" >
     <Grid>
-        <Image Source="battleship.png" Aspect="AspectFill"/>
-        <FlexLayout Direction="Row" Wrap="Wrap" JustifyContent="SpaceEvenly" FlexLayout.Grow="1">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1.5*"/>
+            <RowDefinition/>
+            <RowDefinition Height="1.5*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Image Grid.RowSpan="3" Grid.ColumnSpan="2" Source="battleship.png" Aspect="AspectFill"/>
+
+        <BoxView x:Name="AnnouncementBox" 
+                 Grid.Row="1" 
+                 Grid.ColumnSpan="2" 
+                 IsVisible="false"
+                 BackgroundColor="#5c5c5c"
+                 SizeChanged="ResponsiveFont"/>
+
+        <Label x:Name="AnnouncementText" 
+               Grid.Row="1" 
+               Grid.ColumnSpan="2"
+               Style="{StaticResource AnnouncementLabel}"/>
+
+        <Button Grid.Row="1"
+                x:Name="YesExit"
+                Clicked="YesExit_Clicked"
+                HorizontalOptions="End"
+                VerticalOptions="End"
+                Style="{StaticResource YesNoOption}"/>
+        
+        <Button Grid.Row="1"
+                Grid.Column="1"
+                Clicked="NoExit_Clicked"
+                x:Name="NoExit"
+                HorizontalOptions="Start"
+                VerticalOptions="End"
+                Style="{StaticResource YesNoOption}"/>
+
+        <FlexLayout Grid.RowSpan="3" 
+                    Grid.ColumnSpan="3"
+                    Direction="Row" 
+                    Wrap="Wrap" 
+                    JustifyContent="SpaceEvenly" 
+                    FlexLayout.Grow="1" 
+                    x:Name="MainLayout">
             <!-- Grid 1 -->
-            <Grid MinimumWidthRequest="300" FlexLayout.Grow="1">
-                <Grid.RowDefinitions>
+            <Grid MinimumWidthRequest="300" FlexLayout.Grow="1" SizeChanged="SetRaitoBoard">
+                <Grid.RowDefinitions> 
+                    <RowDefinition Height="1.5*"/>
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition Height="0.3*"/>
+                    <RowDefinition Height="0.2*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.3*"/>
@@ -27,6 +70,11 @@
                     <ColumnDefinition Width="0.3*"/>
                 </Grid.ColumnDefinitions>
 
+                <ImageButton Source="ship.png" Grid.ColumnSpan="2" 
+                             Style="{StaticResource ExitButton}" 
+                             Clicked="ExitButton_Clicked"/>
+                
+                
                 <Button Grid.Row="1" Grid.Column="1" Style="{StaticResource Filed}"/>
                 <Button Grid.Row="1" Grid.Column="2" Style="{StaticResource Filed}"/>
                 <Button Grid.Row="1" Grid.Column="3" Style="{StaticResource Filed}"/>
@@ -60,6 +108,7 @@
 
             <!-- Grid 2 -->
             <Grid MinimumWidthRequest="300" FlexLayout.Grow="1">
+                
             </Grid>
         </FlexLayout>
     </Grid>

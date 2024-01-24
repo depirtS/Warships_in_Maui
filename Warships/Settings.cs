@@ -9,12 +9,13 @@ namespace Warships
     public class Settings
     {
         private string[,] Lang;
-        private int LangID;
+        private static int LangID = -1;
         public Settings(int langID)
         {
             //pl
+            if(LangID == -1)
             LangID = langID;
-            Lang = new string[2, 9];
+            Lang = new string[2, 12];
             Lang[0, 0] = "Graj";
             Lang[0, 1] = "Ustawienia";
             Lang[0, 2] = "Graj z botem";
@@ -24,6 +25,9 @@ namespace Warships
             Lang[0, 6] = "Zatwierdź";
             Lang[0, 7] = "Polski";
             Lang[0, 8] = "Angielski";
+            Lang[0, 9] = "Czy chcesz opuścić grę?";
+            Lang[0, 10] = "Tak";
+            Lang[0, 11] = "Nie";
             //en
             Lang[1, 0] = "Play";
             Lang[1, 1] = "Settings";
@@ -34,6 +38,9 @@ namespace Warships
             Lang[1, 6] = "Apply changes";
             Lang[1, 7] = "Polish";
             Lang[1, 8] = "English";
+            Lang[1, 9] = "Do you want to leave the game?";
+            Lang[1, 10] = "Yes";
+            Lang[1, 11] = "No";
         }
 
         public void SetLangID(int lang)

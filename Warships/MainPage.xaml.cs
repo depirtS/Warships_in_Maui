@@ -9,13 +9,14 @@
         public MainPage()
         {
             InitializeComponent();
+            NavigationPage.SetHasNavigationBar(this, false);
+            Settings = new Settings(0);
             InitalizeStartValues();
         }
 
         private void InitalizeStartValues()
         {
             StepMenu = 0;
-            Settings = new Settings(0);
         }
         private void GoGameOption(object sender, EventArgs e)
         {
@@ -46,15 +47,17 @@
             else if(GoGame.Text.Equals(Settings.LangStringValue(4)))
             {
                 if(PlayerBot == true)
-                {              
-                    _5x5 secondPage = new _5x5();
-                    this.Content = secondPage.Content;
+                {
+                    Navigation.PushModalAsync(new _5x5());
+                    //_5x5 secondPage = new _5x5();
+                    //this.Content = secondPage.Content;
                     //TODO: gra na planszy 5x5 z botem
                 }
                 else
                 {
-                    _5x5 secondPage = new _5x5();
-                    this.Content = secondPage.Content;
+                    Navigation.PushModalAsync(new _5x5());
+                    //_5x5 secondPage = new _5x5();
+                    //this.Content = secondPage.Content;
                     //TODO: gra na planszy 5x5 z graczem
                 }
             }
@@ -90,14 +93,16 @@
             {
                 if (PlayerBot == true)
                 {
-                    _7x7 secondPage = new _7x7();
-                    this.Content = secondPage.Content;
+                    Navigation.PushModalAsync(new _7x7());
+                    //_7x7 secondPage = new _7x7();
+                    //this.Content = secondPage.Content;
                     //TODO: gra na planszy 7x7 z botem
                 }
                 else
                 {
-                    _7x7 secondPage = new _7x7();
-                    this.Content = secondPage.Content;
+                    Navigation.PushModalAsync(new _7x7());
+                    //_7x7 secondPage = new _7x7();
+                    //this.Content = secondPage.Content;
                     //TODO: gra na planszy 7x7 z graczem
                 }
             }
