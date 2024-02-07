@@ -3,26 +3,61 @@ namespace Warships;
 public partial class _5x5 : ContentPage
 {
     private Settings Settings { get; set; } 
+    private bool Bot {  get; set; }
     private bool StopGame {  get; set; }
+    private int StepGame {  get; set; }
+    private IDispatcherTimer Timer { get; set; }
+    private int Time {  get; set; }
     protected override bool OnBackButtonPressed()
     {
         ExitButton_Clicked(this,null);
         return true;
     }
-	public _5x5()
+	public _5x5(bool bot)
 	{
 		InitializeComponent();
         NavigationPage.SetHasNavigationBar(this, false);
         Settings = new Settings(0);
+        Bot = bot;
         InitializeValue();
-
     }
     private void InitializeValue()
     {
+        StepGame = 0;
         StopGame = false;
         AnnouncementText.Text = Settings.LangStringValue(9);
         YesExit.Text = Settings.LangStringValue(10);
         NoExit.Text = Settings.LangStringValue(11);
+        RandomSelectButton.Text = Settings.LangStringValue(12);
+        ConfrimSelectButton.Text = Settings.LangStringValue(13);
+        SeeMyBoard.Text = Settings.LangStringValue(14);
+    }
+
+    private void InitalizeTimer()
+    {
+        Timer = Dispatcher.CreateTimer();
+        Timer.Interval = TimeSpan.FromSeconds(1);
+        Timer.Tick += (s, e) =>
+        {
+            TimerSetTime();
+        };
+        Timer.Start();
+    }
+
+    private void TimerSetTime()
+    {
+        if(StopGame == false && Time > 0)
+        {
+            Time--;
+            int TimeSec = Time%60;
+            int TimeMin = Time/60;
+            string TimerSet = "";
+            if (TimeSec < 10)
+                TimerSet = "0" + TimeMin.ToString() + ":0" + TimeSec.ToString();
+            else
+                TimerSet = "0" + TimeMin.ToString() + ":" + TimeSec.ToString();
+                TimeText.Text = TimerSet;
+        }
     }
     private void Selected_Field(object sender, EventArgs e)
     {
@@ -31,7 +66,10 @@ public partial class _5x5 : ContentPage
 
     private void ExitButton_Clicked(object sender, EventArgs e)
     {
+        ScrollView.IsVisible = false;
         MainLayout.IsVisible = false;
+        TimeBox.IsVisible = false;
+        TimeText.IsVisible = false;
         AnnouncementBox.IsVisible = true;
         AnnouncementText.IsVisible = true;
         YesExit.IsVisible = true;
@@ -45,7 +83,10 @@ public partial class _5x5 : ContentPage
 
     private void NoExit_Clicked(object sender, EventArgs e)
     {
+        ScrollView.IsVisible = true;
         MainLayout.IsVisible = true;
+        TimeBox.IsVisible = true;
+        TimeText.IsVisible = true;
         AnnouncementBox.IsVisible = false;
         AnnouncementText.IsVisible = false;
         YesExit.IsVisible = false;
@@ -87,4 +128,31 @@ public partial class _5x5 : ContentPage
         AnnouncementText.FontSize = size;
     }
 
+    private void MainLayout_SizeChanged(object sender, EventArgs e)
+    {
+        if (MainLayout.Width <= 800)
+            MainLayout.Orientation = StackOrientation.Vertical;
+        else
+            MainLayout.Orientation = StackOrientation.Horizontal;
+
+        int size;
+         if (MainLayout.Width < 900)
+            size = 401;
+        else if (MainLayout.Width < 1000)
+            size = 450;
+        else if (MainLayout.Width < 1100)
+            size = 500;
+        else if (MainLayout.Width < 1200)
+            size = 550;
+        else if (MainLayout.Width < 1300)
+            size = 600;
+        else if (MainLayout.Width < 1400)
+            size = 650;
+        else
+            size = 700;
+
+         GridBoard.WidthRequest = size;
+         GridGameControl.WidthRequest = size;
+
+    }
 }

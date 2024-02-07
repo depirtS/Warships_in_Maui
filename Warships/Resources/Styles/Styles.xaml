@@ -33,10 +33,18 @@
         <Setter Property="Background" Value="Gray"/>
     </Style>
 
+    <Style TargetType="Button" x:Key="GameControl">
+        <Setter Property="Margin" Value="30"/>
+        <Setter Property="BackgroundColor" Value="Gray"/>
+        <Setter Property="BorderColor" Value="Black"/>
+        <Setter Property="BorderWidth" Value="3"/>
+        <Setter Property="TextColor" Value="White"/>
+    </Style>
+
     <Style TargetType="ImageButton" x:Key="ExitButton">
         <Setter Property="BackgroundColor" Value="Transparent"/>
-        <Setter Property="VerticalOptions" Value="Center"/>
-        <Setter Property="HorizontalOptions" Value="End"/>
+        <Setter Property="VerticalOptions" Value="Start"/>
+        <Setter Property="HorizontalOptions" Value="Center"/>
         <Setter Property="MinimumHeightRequest" Value="10"/>
         <Setter Property="MinimumWidthRequest" Value="10"/>
     </Style>
@@ -49,6 +57,14 @@
         <Setter Property="Padding" Value="0,0,0,20"/>
     </Style>
 
+    <Style TargetType="Label" x:Key="CommunicationInGame">
+        <Setter Property="FontSize" Value="22"/>
+        <Setter Property="LineBreakMode" Value="WordWrap"/>
+        <Setter Property="HorizontalOptions" Value="Center"/>
+        <Setter Property="VerticalOptions" Value="End"/>
+        <Setter Property="MinimumHeightRequest" Value="25"/>
+    </Style>
+    
     <Style TargetType="ActivityIndicator">
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
     </Style>

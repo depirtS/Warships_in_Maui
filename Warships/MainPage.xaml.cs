@@ -48,14 +48,14 @@
             {
                 if(PlayerBot == true)
                 {
-                    Navigation.PushModalAsync(new _5x5());
+                    Navigation.PushModalAsync(new _5x5(PlayerBot));
                     //_5x5 secondPage = new _5x5();
                     //this.Content = secondPage.Content;
                     //TODO: gra na planszy 5x5 z botem
                 }
                 else
                 {
-                    Navigation.PushModalAsync(new _5x5());
+                    Navigation.PushModalAsync(new _5x5(PlayerBot));
                     //_5x5 secondPage = new _5x5();
                     //this.Content = secondPage.Content;
                     //TODO: gra na planszy 5x5 z graczem
@@ -93,14 +93,14 @@
             {
                 if (PlayerBot == true)
                 {
-                    Navigation.PushModalAsync(new _7x7());
+                    Navigation.PushModalAsync(new _7x7(PlayerBot));
                     //_7x7 secondPage = new _7x7();
                     //this.Content = secondPage.Content;
                     //TODO: gra na planszy 7x7 z botem
                 }
                 else
                 {
-                    Navigation.PushModalAsync(new _7x7());
+                    Navigation.PushModalAsync(new _7x7(PlayerBot));
                     //_7x7 secondPage = new _7x7();
                     //this.Content = secondPage.Content;
                     //TODO: gra na planszy 7x7 z graczem

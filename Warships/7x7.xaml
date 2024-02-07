@@ -3,10 +3,310 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Warships._7x7"
              Title="_7x7">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI 7x7!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1.5*"/>
+            <RowDefinition/>
+            <RowDefinition Height="1.5*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Image Grid.RowSpan="3" Grid.ColumnSpan="2" Source="battleship.png" Aspect="AspectFill"/>
+
+        <BoxView x:Name="TimeBox"
+                 Grid.ColumnSpan="2"
+                 HorizontalOptions="Center"
+                 VerticalOptions="Start"
+                 MinimumHeightRequest="50"
+                 MinimumWidthRequest="100"
+                 BackgroundColor="{StaticResource Gray500}"
+                 CornerRadius="0,0,50,50"
+                 Opacity="0.5"/>
+
+        <Label x:Name="TimeText"
+               Grid.ColumnSpan="2"
+               HorizontalOptions="Center"
+               Margin="10"
+               FontSize="22"
+               Text="00:00"/>
+
+        <BoxView x:Name="AnnouncementBox" 
+                 Grid.Row="1" 
+                 Grid.ColumnSpan="2" 
+                 IsVisible="false"
+                 BackgroundColor="{StaticResource Gray500}"
+                 SizeChanged="ResponsiveFont"/>
+
+        <Label x:Name="AnnouncementText" 
+               Grid.Row="1" 
+               Grid.ColumnSpan="2"
+               Style="{StaticResource AnnouncementLabel}"/>
+
+        <Button Grid.Row="1"
+                x:Name="YesExit"
+                Clicked="YesExit_Clicked"
+                HorizontalOptions="End"
+                VerticalOptions="End"
+                Style="{StaticResource YesNoOption}"/>
+
+        <Button Grid.Row="1"
+                Grid.Column="1"
+                Clicked="NoExit_Clicked"
+                x:Name="NoExit"
+                HorizontalOptions="Start"
+                VerticalOptions="End"
+                Style="{StaticResource YesNoOption}"/>
+        <ScrollView Grid.RowSpan="3" Grid.ColumnSpan="2" x:Name="ScrollView">
+            <StackLayout
+                Orientation="Horizontal"
+                x:Name="MainLayout"
+                SizeChanged="MainLayout_SizeChanged">
+                <!-- Grid 1 -->
+                <Grid MinimumWidthRequest="400" SizeChanged="SetRaitoBoard" x:Name="GridBoard">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition Height="0.2*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.3*"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="0.3*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <ImageButton Source="ship.png" Grid.ColumnSpan="2" 
+                             Style="{StaticResource ExitButton}" 
+                             Clicked="ExitButton_Clicked"/>
+
+                    <Label
+                    VerticalOptions="Center"
+                    HorizontalOptions="End"
+                    Grid.Row="1"
+                    Text="A"
+                    FontSize="20"
+                    TextColor="Black"
+                    FontAttributes="Bold"/>
+                    <Label
+                    VerticalOptions="Center"
+                    HorizontalOptions="End"
+                    Grid.Row="2"
+                    Text="B"
+                    FontSize="20"
+                    TextColor="Black"
+                    FontAttributes="Bold"/>
+                    <Label
+                    VerticalOptions="Center"
+                    HorizontalOptions="End"
+                    Grid.Row="3"
+                    Text="C"
+                    FontSize="20"
+                    TextColor="Black"
+                    FontAttributes="Bold"/>
+                    <Label
+                    VerticalOptions="Center"
+                    HorizontalOptions="End"
+                    Grid.Row="4"
+                    Text="D"
+                    FontSize="20"
+                    TextColor="Black"
+                    FontAttributes="Bold"/>
+                    <Label
+                    VerticalOptions="Center"
+                    HorizontalOptions="End"
+                    Grid.Row="5"
+                    Text="E"
+                    FontSize="20"
+                    TextColor="Black"
+                    FontAttributes="Bold"/>
+                    <Label
+                    VerticalOptions="Center"
+                    HorizontalOptions="End"
+                    Grid.Row="6"
+                    Text="F"
+                    FontSize="20"
+                    TextColor="Black"
+                    FontAttributes="Bold"/>
+                    <Label
+                    VerticalOptions="Center"
+                    HorizontalOptions="End"
+                    Grid.Row="7"
+                    Text="G"
+                    FontSize="20"
+                    TextColor="Black"
+                    FontAttributes="Bold"/>
+
+                    <Label
+                    VerticalOptions="End"
+                    HorizontalOptions="Center"
+                    Grid.Column="1"
+                    Text="1"
+                    FontSize="20"
+                    TextColor="Black"
+                    FontAttributes="Bold"/>
+                    <Label
+                    VerticalOptions="End"
+                    HorizontalOptions="Center"
+                    Grid.Column="2"
+                    Text="2"
+                    FontSize="20"
+                    TextColor="Black"
+                    FontAttributes="Bold"/>
+                    <Label
+                    VerticalOptions="End"
+                    HorizontalOptions="Center"
+                    Grid.Column="3"
+                    Text="3"
+                    FontSize="20"
+                    TextColor="Black"
+                    FontAttributes="Bold"/>
+                    <Label
+                    VerticalOptions="End"
+                    HorizontalOptions="Center"
+                    Grid.Column="4"
+                    Text="4"
+                    FontSize="20"
+                    TextColor="Black"
+                    FontAttributes="Bold"/>
+                    <Label
+                    VerticalOptions="End"
+                    HorizontalOptions="Center"
+                    Grid.Column="5"
+                    Text="5"
+                    FontSize="20"
+                    TextColor="Black"
+                    FontAttributes="Bold"/>
+                    <Label
+                    VerticalOptions="End"
+                    HorizontalOptions="Center"
+                    Grid.Column="6"
+                    Text="6"
+                    FontSize="20"
+                    TextColor="Black"
+                    FontAttributes="Bold"/>
+                    <Label
+                    VerticalOptions="End"
+                    HorizontalOptions="Center"
+                    Grid.Column="7"
+                    Text="7"
+                    FontSize="20"
+                    TextColor="Black"
+                    FontAttributes="Bold"/>
+
+                    <Button Grid.Row="1" Grid.Column="1" Style="{StaticResource Filed}" Text="A1"/>
+                    <Button Grid.Row="1" Grid.Column="2" Style="{StaticResource Filed}" Text="A2"/>
+                    <Button Grid.Row="1" Grid.Column="3" Style="{StaticResource Filed}" Text="A3"/>
+                    <Button Grid.Row="1" Grid.Column="4" Style="{StaticResource Filed}" Text="A4"/>
+                    <Button Grid.Row="1" Grid.Column="5" Style="{StaticResource Filed}" Text="A5"/>
+                    <Button Grid.Row="1" Grid.Column="6" Style="{StaticResource Filed}" Text="A6"/>
+                    <Button Grid.Row="1" Grid.Column="7" Style="{StaticResource Filed}" Text="A7"/>
+
+                    <Button Grid.Row="2" Grid.Column="1" Style="{StaticResource Filed}" Text="B1"/>
+                    <Button Grid.Row="2" Grid.Column="2" Style="{StaticResource Filed}" Text="B2"/>
+                    <Button Grid.Row="2" Grid.Column="3" Style="{StaticResource Filed}" Text="B3"/>
+                    <Button Grid.Row="2" Grid.Column="4" Style="{StaticResource Filed}" Text="B4"/>
+                    <Button Grid.Row="2" Grid.Column="5" Style="{StaticResource Filed}" Text="B5"/>
+                    <Button Grid.Row="2" Grid.Column="6" Style="{StaticResource Filed}" Text="B6"/>
+                    <Button Grid.Row="2" Grid.Column="7" Style="{StaticResource Filed}" Text="B7"/>
+
+                    <Button Grid.Row="3" Grid.Column="1" Style="{StaticResource Filed}" Text="C1"/>
+                    <Button Grid.Row="3" Grid.Column="2" Style="{StaticResource Filed}" Text="C2"/>
+                    <Button Grid.Row="3" Grid.Column="3" Style="{StaticResource Filed}" Text="C3"/>
+                    <Button Grid.Row="3" Grid.Column="4" Style="{StaticResource Filed}" Text="C4"/>
+                    <Button Grid.Row="3" Grid.Column="5" Style="{StaticResource Filed}" Text="C5"/>
+                    <Button Grid.Row="3" Grid.Column="6" Style="{StaticResource Filed}" Text="C6"/>
+                    <Button Grid.Row="3" Grid.Column="7" Style="{StaticResource Filed}" Text="C7"/>
+
+                    <Button Grid.Row="4" Grid.Column="1" Style="{StaticResource Filed}" Text="D1"/>
+                    <Button Grid.Row="4" Grid.Column="2" Style="{StaticResource Filed}" Text="D2"/>
+                    <Button Grid.Row="4" Grid.Column="3" Style="{StaticResource Filed}" Text="D3"/>
+                    <Button Grid.Row="4" Grid.Column="4" Style="{StaticResource Filed}" Text="D4"/>
+                    <Button Grid.Row="4" Grid.Column="5" Style="{StaticResource Filed}" Text="D5"/>
+                    <Button Grid.Row="4" Grid.Column="6" Style="{StaticResource Filed}" Text="D6"/>
+                    <Button Grid.Row="4" Grid.Column="7" Style="{StaticResource Filed}" Text="D7"/>
+
+                    <Button Grid.Row="5" Grid.Column="1" Style="{StaticResource Filed}" Text="E1"/>
+                    <Button Grid.Row="5" Grid.Column="2" Style="{StaticResource Filed}" Text="E2"/>
+                    <Button Grid.Row="5" Grid.Column="3" Style="{StaticResource Filed}" Text="E3"/>
+                    <Button Grid.Row="5" Grid.Column="4" Style="{StaticResource Filed}" Text="E4"/>
+                    <Button Grid.Row="5" Grid.Column="5" Style="{StaticResource Filed}" Text="E5"/>
+                    <Button Grid.Row="5" Grid.Column="6" Style="{StaticResource Filed}" Text="E6"/>
+                    <Button Grid.Row="5" Grid.Column="7" Style="{StaticResource Filed}" Text="E7"/>
+                    
+                    <Button Grid.Row="6" Grid.Column="1" Style="{StaticResource Filed}" Text="F1"/>
+                    <Button Grid.Row="6" Grid.Column="2" Style="{StaticResource Filed}" Text="F2"/>
+                    <Button Grid.Row="6" Grid.Column="3" Style="{StaticResource Filed}" Text="F3"/>
+                    <Button Grid.Row="6" Grid.Column="4" Style="{StaticResource Filed}" Text="F4"/>
+                    <Button Grid.Row="6" Grid.Column="5" Style="{StaticResource Filed}" Text="F5"/>
+                    <Button Grid.Row="6" Grid.Column="6" Style="{StaticResource Filed}" Text="F6"/>
+                    <Button Grid.Row="6" Grid.Column="7" Style="{StaticResource Filed}" Text="F7"/>
+                    
+                    <Button Grid.Row="7" Grid.Column="1" Style="{StaticResource Filed}" Text="G1"/>
+                    <Button Grid.Row="7" Grid.Column="2" Style="{StaticResource Filed}" Text="G2"/>
+                    <Button Grid.Row="7" Grid.Column="3" Style="{StaticResource Filed}" Text="G3"/>
+                    <Button Grid.Row="7" Grid.Column="4" Style="{StaticResource Filed}" Text="G4"/>
+                    <Button Grid.Row="7" Grid.Column="5" Style="{StaticResource Filed}" Text="G5"/>
+                    <Button Grid.Row="7" Grid.Column="6" Style="{StaticResource Filed}" Text="G6"/>
+                    <Button Grid.Row="7" Grid.Column="7" Style="{StaticResource Filed}" Text="G7"/>
+                </Grid>
+
+                <!-- Grid 2 -->
+                <Grid MinimumWidthRequest="400" x:Name="GridGameControl">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label
+                Grid.Row="0"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Style="{StaticResource CommunicationInGame}"
+                Text="Komunikaty"
+                />
+
+                    <Button
+                        Grid.Row="2"
+                        x:Name="RandomSelectButton"
+                        Text="Random select"
+                        Style="{StaticResource GameControl}"/>
+
+                    <Button
+                        Grid.Column="1"
+                        Grid.Row="2"
+                        x:Name="ConfrimSelectButton"
+                        Text="Confrim"
+                        Style="{StaticResource GameControl}"/>
+
+                    <Button
+                        Grid.Row="3"
+                        x:Name="SeeMyBoard"
+                        Text="See your board"
+                        Style="{StaticResource GameControl}"/>
+
+                </Grid>
+            </StackLayout>
+        </ScrollView>
+    </Grid>
 </ContentPage>
