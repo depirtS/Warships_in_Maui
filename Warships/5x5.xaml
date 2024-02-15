@@ -221,8 +221,7 @@
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
                 Style="{StaticResource CommunicationInGame}"
-                Text="Komunikaty"
-                />
+                x:Name="Alert"/>
 
                     <Button
                         Grid.Row="2"

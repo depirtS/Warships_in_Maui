@@ -8,6 +8,8 @@ public partial class _7x7 : ContentPage
     private int StepGame { get; set; }
     private IDispatcherTimer Timer { get; set; }
     private int Time { get; set; }
+    private Player PlayerOne { get; set; }
+    private Player PlayerTwo { get; set; }
     protected override bool OnBackButtonPressed()
     {
         ExitButton_Clicked(this, null);
@@ -31,6 +33,26 @@ public partial class _7x7 : ContentPage
         RandomSelectButton.Text = Settings.LangStringValue(12);
         ConfrimSelectButton.Text = Settings.LangStringValue(13);
         SeeMyBoard.Text = Settings.LangStringValue(14);
+        if (Bot)
+        {
+            PlayerOne = new Player(false);
+        }
+        else
+        {
+            PlayerOne = new Player(false);
+            PlayerTwo = new Player(false);
+        }
+
+
+        Timer = Dispatcher.CreateTimer();
+        Timer.Interval = TimeSpan.FromSeconds(1);
+        Timer.Tick += (s, e) =>
+        {
+            MainLayout_SizeChanged(this, null);
+            SetRaitoBoard(GridBoard, null);
+            Timer.Stop();
+        };
+        Timer.Start();
     }
 
     private void InitalizeTimer()
@@ -153,6 +175,5 @@ public partial class _7x7 : ContentPage
 
         GridBoard.WidthRequest = size;
         GridGameControl.WidthRequest = size;
-
     }
 }

@@ -6,8 +6,17 @@ public partial class _5x5 : ContentPage
     private bool Bot {  get; set; }
     private bool StopGame {  get; set; }
     private int StepGame {  get; set; }
+    //0 - Select fields Player one
+    //1 - Select fields Player two
+    //3 - Attack fields Player one
+    //4 - Attack fields Player two
     private IDispatcherTimer Timer { get; set; }
     private int Time {  get; set; }
+    private Player PlayerOne { get; set; }
+    private Player PlayerTwo { get; set; }
+    private int OneShip {  get; set; }
+    private int TwoShip { get; set; }
+    private int ThreeShip { get; set; }
     protected override bool OnBackButtonPressed()
     {
         ExitButton_Clicked(this,null);
@@ -31,6 +40,30 @@ public partial class _5x5 : ContentPage
         RandomSelectButton.Text = Settings.LangStringValue(12);
         ConfrimSelectButton.Text = Settings.LangStringValue(13);
         SeeMyBoard.Text = Settings.LangStringValue(14);
+        Alert.Text = Settings.LangStringValue(15) + OneShip.ToString() + "*OneShip, " + TwoShip.ToString() + "*TwoShip, " + ThreeShip.ToString() + "*ThreeShip.";
+
+        if (Bot)
+        {
+            PlayerOne = new Player(true);
+        }
+        else
+        {
+            PlayerOne = new Player(true);
+            PlayerTwo = new Player(true);
+        }
+        OneShip = 2;
+        TwoShip = 2;
+        ThreeShip = 1;
+
+        Timer = Dispatcher.CreateTimer();
+        Timer.Interval = TimeSpan.FromSeconds(0.1);
+        Timer.Tick += (s, e) =>
+        {
+            MainLayout_SizeChanged(this, null);
+            SetRaitoBoard(GridBoard, null);
+            Timer.Stop();
+        };
+        Timer.Start();
     }
 
     private void InitalizeTimer()
@@ -60,6 +93,25 @@ public partial class _5x5 : ContentPage
         }
     }
     private void Selected_Field(object sender, EventArgs e)
+    {
+        if (Bot)
+        {
+            if(StepGame == 0)
+            {
+
+            }
+            else if( StepGame == 3)
+            {
+
+            }
+        }
+        else
+        {
+            //TODO: create play with other player
+        }
+    }
+
+    private void SetShipID()
     {
 
     }

@@ -15,7 +15,7 @@ namespace Warships
             //pl
             if(LangID == -1)
             LangID = langID;
-            Lang = new string[2, 15];
+            Lang = new string[2, 16];
             Lang[0, 0] = "Graj";
             Lang[0, 1] = "Ustawienia";
             Lang[0, 2] = "Graj z botem";
@@ -31,6 +31,7 @@ namespace Warships
             Lang[0, 12] = "Wybierz losowo";
             Lang[0, 13] = "Zatwierdź wybór";
             Lang[0, 14] = "Wyświetl swoją planszę";
+            Lang[0, 15] = "Wybierz rozmieszczenie statków: ";
             //en
             Lang[1, 0] = "Play";
             Lang[1, 1] = "Settings";
@@ -45,8 +46,9 @@ namespace Warships
             Lang[1, 10] = "Yes";
             Lang[1, 11] = "No";
             Lang[1, 12] = "Random select";
-            Lang[1, 13] = "Confrim select";
+            Lang[1, 13] = "Confirm select";
             Lang[1, 14] = "See your board";
+            Lang[1, 15] = "Select ship placement: ";
         }
 
         public void SetLangID(int lang)
