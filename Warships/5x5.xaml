@@ -202,7 +202,7 @@
                 </Grid>
 
                 <!-- Grid 2 -->
-                <Grid MinimumWidthRequest="400" x:Name="GridGameControl">
+                <Grid MinimumWidthRequest="400" x:Name="GridGameControl" SizeChanged="GameControl_ResponsiveFont">
 
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -217,11 +217,11 @@
                     </Grid.ColumnDefinitions>
 
                     <Label
-                Grid.Row="0"
-                Grid.Column="0"
-                Grid.ColumnSpan="2"
-                Style="{StaticResource CommunicationInGame}"
-                x:Name="Alert"/>
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Style="{StaticResource CommunicationInGame}"
+                        x:Name="Alert"/>
 
                     <Button
                         Grid.Row="2"

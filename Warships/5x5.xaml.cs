@@ -111,7 +111,7 @@ public partial class _5x5 : ContentPage
                         ShipCount = 0;
                         for (int i = 0; i < 9; i++)
                             PlayerTwo.SetRandomOwnFields();
-                        NextPlayerAlert("Player 1");
+                        NextPlayerAlert(Settings.LangStringValue(17) + "1");
                     }
                     else
                     {
@@ -119,7 +119,7 @@ public partial class _5x5 : ContentPage
                         PlayerBool = false;
                         ShipCount = 9;
                         Alert.Text = Settings.LangStringValue(15) + " 9";
-                        NextPlayerAlert("Player 2");
+                        NextPlayerAlert(Settings.LangStringValue(17) + "2");
                     }
                 }
                 else
@@ -129,7 +129,7 @@ public partial class _5x5 : ContentPage
                         PlayerTwo.SetRandomOwnFields();
                     PlayerBool = true;
                     StepGame = false;
-                    NextPlayerAlert("Player 1");
+                    NextPlayerAlert(Settings.LangStringValue(17) + "1");
                 }
             }
             else
@@ -173,7 +173,7 @@ public partial class _5x5 : ContentPage
                         StepGame = false;
                         for (int i = 0; i < 9; i++)
                             PlayerTwo.SetRandomOwnFields();
-                        NextPlayerAlert("Player 1");
+                        NextPlayerAlert(Settings.LangStringValue(17) + "1");
                     }
                     else
                     {
@@ -181,7 +181,7 @@ public partial class _5x5 : ContentPage
                         PlayerBool = false;
                         ShipCount = 9;
                         Alert.Text = Settings.LangStringValue(15) + " 9";
-                        NextPlayerAlert("Player 2");
+                        NextPlayerAlert(Settings.LangStringValue(17) + "2");
                     }
                 }
                 else
@@ -190,7 +190,7 @@ public partial class _5x5 : ContentPage
                     ConfrimSelect(PlayerTwo);
                     PlayerBool = true;
                     StepGame = false;
-                    NextPlayerAlert("Player 1");
+                    NextPlayerAlert(Settings.LangStringValue(17) + "1");
                 }
             }
             else
@@ -358,6 +358,27 @@ public partial class _5x5 : ContentPage
         AnnouncementText.FontSize = size;
     }
 
+    private void GameControl_ResponsiveFont(object sender, EventArgs e)
+    {
+        double size;
+        if (ScrollView.Width < 400)
+            size = 14;
+        else if (ScrollView.Width < 500)
+            size = 17;
+        else if (ScrollView.Width < 600)
+            size = 19;
+        else if (ScrollView.Width < 700)
+            size = 22;
+        else if (ScrollView.Width < 800)
+            size = 24;
+        else
+            size = 26;
+        Alert.FontSize = size;
+        size /= 1.5;
+        RandomSelectButton.FontSize = size;
+        ConfrimSelectButton.FontSize = size;
+        SeeMyBoard.FontSize = size;
+    }
     private void MainLayout_SizeChanged(object sender, EventArgs e)
     {
         if (MainLayout.Width <= 800)

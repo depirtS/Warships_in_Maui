@@ -206,65 +206,65 @@
                     TextColor="Black"
                     FontAttributes="Bold"/>
 
-                    <Button Grid.Row="1" Grid.Column="1" Style="{StaticResource Filed}" Text="A1"/>
-                    <Button Grid.Row="1" Grid.Column="2" Style="{StaticResource Filed}" Text="A2"/>
-                    <Button Grid.Row="1" Grid.Column="3" Style="{StaticResource Filed}" Text="A3"/>
-                    <Button Grid.Row="1" Grid.Column="4" Style="{StaticResource Filed}" Text="A4"/>
-                    <Button Grid.Row="1" Grid.Column="5" Style="{StaticResource Filed}" Text="A5"/>
-                    <Button Grid.Row="1" Grid.Column="6" Style="{StaticResource Filed}" Text="A6"/>
-                    <Button Grid.Row="1" Grid.Column="7" Style="{StaticResource Filed}" Text="A7"/>
+                    <Button Grid.Row="1" Grid.Column="1" Style="{StaticResource Filed}" Text="A1" Clicked="Selected_Field" x:Name="A1"/>
+                    <Button Grid.Row="1" Grid.Column="2" Style="{StaticResource Filed}" Text="A2" Clicked="Selected_Field" x:Name="A2"/>
+                    <Button Grid.Row="1" Grid.Column="3" Style="{StaticResource Filed}" Text="A3" Clicked="Selected_Field" x:Name="A3"/>
+                    <Button Grid.Row="1" Grid.Column="4" Style="{StaticResource Filed}" Text="A4" Clicked="Selected_Field" x:Name="A4"/>
+                    <Button Grid.Row="1" Grid.Column="5" Style="{StaticResource Filed}" Text="A5" Clicked="Selected_Field" x:Name="A5"/>
+                    <Button Grid.Row="1" Grid.Column="6" Style="{StaticResource Filed}" Text="A6" Clicked="Selected_Field" x:Name="A6"/>
+                    <Button Grid.Row="1" Grid.Column="7" Style="{StaticResource Filed}" Text="A7" Clicked="Selected_Field" x:Name="A7"/>
 
-                    <Button Grid.Row="2" Grid.Column="1" Style="{StaticResource Filed}" Text="B1"/>
-                    <Button Grid.Row="2" Grid.Column="2" Style="{StaticResource Filed}" Text="B2"/>
-                    <Button Grid.Row="2" Grid.Column="3" Style="{StaticResource Filed}" Text="B3"/>
-                    <Button Grid.Row="2" Grid.Column="4" Style="{StaticResource Filed}" Text="B4"/>
-                    <Button Grid.Row="2" Grid.Column="5" Style="{StaticResource Filed}" Text="B5"/>
-                    <Button Grid.Row="2" Grid.Column="6" Style="{StaticResource Filed}" Text="B6"/>
-                    <Button Grid.Row="2" Grid.Column="7" Style="{StaticResource Filed}" Text="B7"/>
+                    <Button Grid.Row="2" Grid.Column="1" Style="{StaticResource Filed}" Text="B1" Clicked="Selected_Field" x:Name="B1"/>
+                    <Button Grid.Row="2" Grid.Column="2" Style="{StaticResource Filed}" Text="B2" Clicked="Selected_Field" x:Name="B2"/>
+                    <Button Grid.Row="2" Grid.Column="3" Style="{StaticResource Filed}" Text="B3" Clicked="Selected_Field" x:Name="B3"/>
+                    <Button Grid.Row="2" Grid.Column="4" Style="{StaticResource Filed}" Text="B4" Clicked="Selected_Field" x:Name="B4"/>
+                    <Button Grid.Row="2" Grid.Column="5" Style="{StaticResource Filed}" Text="B5" Clicked="Selected_Field" x:Name="B5"/>
+                    <Button Grid.Row="2" Grid.Column="6" Style="{StaticResource Filed}" Text="B6" Clicked="Selected_Field" x:Name="B6"/>
+                    <Button Grid.Row="2" Grid.Column="7" Style="{StaticResource Filed}" Text="B7" Clicked="Selected_Field" x:Name="B7"/>
 
-                    <Button Grid.Row="3" Grid.Column="1" Style="{StaticResource Filed}" Text="C1"/>
-                    <Button Grid.Row="3" Grid.Column="2" Style="{StaticResource Filed}" Text="C2"/>
-                    <Button Grid.Row="3" Grid.Column="3" Style="{StaticResource Filed}" Text="C3"/>
-                    <Button Grid.Row="3" Grid.Column="4" Style="{StaticResource Filed}" Text="C4"/>
-                    <Button Grid.Row="3" Grid.Column="5" Style="{StaticResource Filed}" Text="C5"/>
-                    <Button Grid.Row="3" Grid.Column="6" Style="{StaticResource Filed}" Text="C6"/>
-                    <Button Grid.Row="3" Grid.Column="7" Style="{StaticResource Filed}" Text="C7"/>
+                    <Button Grid.Row="3" Grid.Column="1" Style="{StaticResource Filed}" Text="C1" Clicked="Selected_Field" x:Name="C1"/>
+                    <Button Grid.Row="3" Grid.Column="2" Style="{StaticResource Filed}" Text="C2" Clicked="Selected_Field" x:Name="C2"/>
+                    <Button Grid.Row="3" Grid.Column="3" Style="{StaticResource Filed}" Text="C3" Clicked="Selected_Field" x:Name="C3"/>
+                    <Button Grid.Row="3" Grid.Column="4" Style="{StaticResource Filed}" Text="C4" Clicked="Selected_Field" x:Name="C4"/>
+                    <Button Grid.Row="3" Grid.Column="5" Style="{StaticResource Filed}" Text="C5" Clicked="Selected_Field" x:Name="C5"/>
+                    <Button Grid.Row="3" Grid.Column="6" Style="{StaticResource Filed}" Text="C6" Clicked="Selected_Field" x:Name="C6"/>
+                    <Button Grid.Row="3" Grid.Column="7" Style="{StaticResource Filed}" Text="C7" Clicked="Selected_Field" x:Name="C7"/>
 
-                    <Button Grid.Row="4" Grid.Column="1" Style="{StaticResource Filed}" Text="D1"/>
-                    <Button Grid.Row="4" Grid.Column="2" Style="{StaticResource Filed}" Text="D2"/>
-                    <Button Grid.Row="4" Grid.Column="3" Style="{StaticResource Filed}" Text="D3"/>
-                    <Button Grid.Row="4" Grid.Column="4" Style="{StaticResource Filed}" Text="D4"/>
-                    <Button Grid.Row="4" Grid.Column="5" Style="{StaticResource Filed}" Text="D5"/>
-                    <Button Grid.Row="4" Grid.Column="6" Style="{StaticResource Filed}" Text="D6"/>
-                    <Button Grid.Row="4" Grid.Column="7" Style="{StaticResource Filed}" Text="D7"/>
+                    <Button Grid.Row="4" Grid.Column="1" Style="{StaticResource Filed}" Text="D1" Clicked="Selected_Field" x:Name="D1"/>
+                    <Button Grid.Row="4" Grid.Column="2" Style="{StaticResource Filed}" Text="D2" Clicked="Selected_Field" x:Name="D2"/>
+                    <Button Grid.Row="4" Grid.Column="3" Style="{StaticResource Filed}" Text="D3" Clicked="Selected_Field" x:Name="D3"/>
+                    <Button Grid.Row="4" Grid.Column="4" Style="{StaticResource Filed}" Text="D4" Clicked="Selected_Field" x:Name="D4"/>
+                    <Button Grid.Row="4" Grid.Column="5" Style="{StaticResource Filed}" Text="D5" Clicked="Selected_Field" x:Name="D5"/>
+                    <Button Grid.Row="4" Grid.Column="6" Style="{StaticResource Filed}" Text="D6" Clicked="Selected_Field" x:Name="D6"/>
+                    <Button Grid.Row="4" Grid.Column="7" Style="{StaticResource Filed}" Text="D7" Clicked="Selected_Field" x:Name="D7"/>
 
-                    <Button Grid.Row="5" Grid.Column="1" Style="{StaticResource Filed}" Text="E1"/>
-                    <Button Grid.Row="5" Grid.Column="2" Style="{StaticResource Filed}" Text="E2"/>
-                    <Button Grid.Row="5" Grid.Column="3" Style="{StaticResource Filed}" Text="E3"/>
-                    <Button Grid.Row="5" Grid.Column="4" Style="{StaticResource Filed}" Text="E4"/>
-                    <Button Grid.Row="5" Grid.Column="5" Style="{StaticResource Filed}" Text="E5"/>
-                    <Button Grid.Row="5" Grid.Column="6" Style="{StaticResource Filed}" Text="E6"/>
-                    <Button Grid.Row="5" Grid.Column="7" Style="{StaticResource Filed}" Text="E7"/>
-                    
-                    <Button Grid.Row="6" Grid.Column="1" Style="{StaticResource Filed}" Text="F1"/>
-                    <Button Grid.Row="6" Grid.Column="2" Style="{StaticResource Filed}" Text="F2"/>
-                    <Button Grid.Row="6" Grid.Column="3" Style="{StaticResource Filed}" Text="F3"/>
-                    <Button Grid.Row="6" Grid.Column="4" Style="{StaticResource Filed}" Text="F4"/>
-                    <Button Grid.Row="6" Grid.Column="5" Style="{StaticResource Filed}" Text="F5"/>
-                    <Button Grid.Row="6" Grid.Column="6" Style="{StaticResource Filed}" Text="F6"/>
-                    <Button Grid.Row="6" Grid.Column="7" Style="{StaticResource Filed}" Text="F7"/>
-                    
-                    <Button Grid.Row="7" Grid.Column="1" Style="{StaticResource Filed}" Text="G1"/>
-                    <Button Grid.Row="7" Grid.Column="2" Style="{StaticResource Filed}" Text="G2"/>
-                    <Button Grid.Row="7" Grid.Column="3" Style="{StaticResource Filed}" Text="G3"/>
-                    <Button Grid.Row="7" Grid.Column="4" Style="{StaticResource Filed}" Text="G4"/>
-                    <Button Grid.Row="7" Grid.Column="5" Style="{StaticResource Filed}" Text="G5"/>
-                    <Button Grid.Row="7" Grid.Column="6" Style="{StaticResource Filed}" Text="G6"/>
-                    <Button Grid.Row="7" Grid.Column="7" Style="{StaticResource Filed}" Text="G7"/>
+                    <Button Grid.Row="5" Grid.Column="1" Style="{StaticResource Filed}" Text="E1" Clicked="Selected_Field" x:Name="E1"/>
+                    <Button Grid.Row="5" Grid.Column="2" Style="{StaticResource Filed}" Text="E2" Clicked="Selected_Field" x:Name="E2"/>
+                    <Button Grid.Row="5" Grid.Column="3" Style="{StaticResource Filed}" Text="E3" Clicked="Selected_Field" x:Name="E3"/>
+                    <Button Grid.Row="5" Grid.Column="4" Style="{StaticResource Filed}" Text="E4" Clicked="Selected_Field" x:Name="E4"/>
+                    <Button Grid.Row="5" Grid.Column="5" Style="{StaticResource Filed}" Text="E5" Clicked="Selected_Field" x:Name="E5"/>
+                    <Button Grid.Row="5" Grid.Column="6" Style="{StaticResource Filed}" Text="E6" Clicked="Selected_Field" x:Name="E6"/>
+                    <Button Grid.Row="5" Grid.Column="7" Style="{StaticResource Filed}" Text="E7" Clicked="Selected_Field" x:Name="E7"/>
+
+                    <Button Grid.Row="6" Grid.Column="1" Style="{StaticResource Filed}" Text="F1" Clicked="Selected_Field" x:Name="F1"/>
+                    <Button Grid.Row="6" Grid.Column="2" Style="{StaticResource Filed}" Text="F2" Clicked="Selected_Field" x:Name="F2"/>
+                    <Button Grid.Row="6" Grid.Column="3" Style="{StaticResource Filed}" Text="F3" Clicked="Selected_Field" x:Name="F3"/>
+                    <Button Grid.Row="6" Grid.Column="4" Style="{StaticResource Filed}" Text="F4" Clicked="Selected_Field" x:Name="F4"/>
+                    <Button Grid.Row="6" Grid.Column="5" Style="{StaticResource Filed}" Text="F5" Clicked="Selected_Field" x:Name="F5"/>
+                    <Button Grid.Row="6" Grid.Column="6" Style="{StaticResource Filed}" Text="F6" Clicked="Selected_Field" x:Name="F6"/>
+                    <Button Grid.Row="6" Grid.Column="7" Style="{StaticResource Filed}" Text="F7" Clicked="Selected_Field" x:Name="F7"/>
+
+                    <Button Grid.Row="7" Grid.Column="1" Style="{StaticResource Filed}" Text="G1" Clicked="Selected_Field" x:Name="G1"/>
+                    <Button Grid.Row="7" Grid.Column="2" Style="{StaticResource Filed}" Text="G2" Clicked="Selected_Field" x:Name="G2"/>
+                    <Button Grid.Row="7" Grid.Column="3" Style="{StaticResource Filed}" Text="G3" Clicked="Selected_Field" x:Name="G3"/>
+                    <Button Grid.Row="7" Grid.Column="4" Style="{StaticResource Filed}" Text="G4" Clicked="Selected_Field" x:Name="G4"/>
+                    <Button Grid.Row="7" Grid.Column="5" Style="{StaticResource Filed}" Text="G5" Clicked="Selected_Field" x:Name="G5"/>
+                    <Button Grid.Row="7" Grid.Column="6" Style="{StaticResource Filed}" Text="G6" Clicked="Selected_Field" x:Name="G6"/>
+                    <Button Grid.Row="7" Grid.Column="7" Style="{StaticResource Filed}" Text="G7" Clicked="Selected_Field" x:Name="G7"/>
                 </Grid>
 
                 <!-- Grid 2 -->
-                <Grid MinimumWidthRequest="400" x:Name="GridGameControl">
+                <Grid MinimumWidthRequest="400" x:Name="GridGameControl" SizeChanged="GameControl_ResponsiveFont">
 
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -279,31 +279,34 @@
                     </Grid.ColumnDefinitions>
 
                     <Label
-                Grid.Row="0"
-                Grid.Column="0"
-                Grid.ColumnSpan="2"
-                Style="{StaticResource CommunicationInGame}"
-                Text="Komunikaty"
-                />
-
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Style="{StaticResource CommunicationInGame}"
+                        x:Name="Alert"/>
+    
                     <Button
                         Grid.Row="2"
                         x:Name="RandomSelectButton"
                         Text="Random select"
-                        Style="{StaticResource GameControl}"/>
+                        Style="{StaticResource GameControl}"
+                        Clicked="RandomSelectButton_Clicked"/>
 
                     <Button
                         Grid.Column="1"
                         Grid.Row="2"
                         x:Name="ConfrimSelectButton"
                         Text="Confrim"
-                        Style="{StaticResource GameControl}"/>
+                        Style="{StaticResource GameControl}"
+                        Clicked="ConfrimSelectButton_Clicked"/>
 
                     <Button
                         Grid.Row="3"
                         x:Name="SeeMyBoard"
                         Text="See your board"
-                        Style="{StaticResource GameControl}"/>
+                        Style="{StaticResource GameControl}"
+                        Clicked="SeeMyBoard_Clicked"/>
+
 
                 </Grid>
             </StackLayout>

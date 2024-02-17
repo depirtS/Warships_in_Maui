@@ -1,3 +1,5 @@
+using Microsoft.Maui.Animations;
+
 namespace Warships;
 
 public partial class _7x7 : ContentPage
@@ -5,11 +7,19 @@ public partial class _7x7 : ContentPage
     private Settings Settings { get; set; }
     private bool Bot { get; set; }
     private bool StopGame { get; set; }
-    private int StepGame { get; set; }
+    private bool StepGame { get; set; }
+    //true - select
+    //false - attack
+    private bool PlayerBool { get; set; }
+    //true - first player
+    //false - second player
+    private bool SeeOwnFields { get; set; }
     private IDispatcherTimer Timer { get; set; }
     private int Time { get; set; }
     private Player PlayerOne { get; set; }
     private Player PlayerTwo { get; set; }
+    private int ShipCount { get; set; }
+    private List<string> ShipID { get; set; }
     protected override bool OnBackButtonPressed()
     {
         ExitButton_Clicked(this, null);
@@ -25,31 +35,35 @@ public partial class _7x7 : ContentPage
     }
     private void InitializeValue()
     {
-        StepGame = 0;
-        StopGame = false;
+        StepGame = true;
+        PlayerBool = true;
+        SeeOwnFields = true;
+
+        PlayerOne = new Player(false);
+        PlayerTwo = new Player(false);
+
+        ShipCount = 15;
+        ShipID = new List<string>();
+
         AnnouncementText.Text = Settings.LangStringValue(9);
         YesExit.Text = Settings.LangStringValue(10);
         NoExit.Text = Settings.LangStringValue(11);
         RandomSelectButton.Text = Settings.LangStringValue(12);
         ConfrimSelectButton.Text = Settings.LangStringValue(13);
         SeeMyBoard.Text = Settings.LangStringValue(14);
-        if (Bot)
-        {
-            PlayerOne = new Player(false);
-        }
-        else
-        {
-            PlayerOne = new Player(false);
-            PlayerTwo = new Player(false);
-        }
+        Alert.Text = Settings.LangStringValue(15) + " 15";
 
+        StopGame = true;
+        InitalizeTimer();
+        Time = 120;
 
         Timer = Dispatcher.CreateTimer();
-        Timer.Interval = TimeSpan.FromSeconds(1);
+        Timer.Interval = TimeSpan.FromSeconds(0.1);
         Timer.Tick += (s, e) =>
         {
             MainLayout_SizeChanged(this, null);
             SetRaitoBoard(GridBoard, null);
+            StopGame = false;
             Timer.Stop();
         };
         Timer.Start();
@@ -80,12 +94,213 @@ public partial class _7x7 : ContentPage
                 TimerSet = "0" + TimeMin.ToString() + ":" + TimeSec.ToString();
             TimeText.Text = TimerSet;
         }
+        else if (StopGame == false)
+        {
+            if (StepGame == true)
+            {
+                Time = 121;
+                SeeOwnFields = true;
+                SeeMyBoard.Text = Settings.LangStringValue(14);
+                if (PlayerBool == true)
+                {
+                    for (int i = 0; i < 15; i++)
+                        PlayerOne.SetRandomOwnFields();
+                    if (Bot == true)
+                    {
+                        SeeGamingBoard(PlayerOne, PlayerTwo);
+                        PlayerBool = true;
+                        StepGame = false;
+                        ShipCount = 0;
+                        for (int i = 0; i < 15; i++)
+                            PlayerTwo.SetRandomOwnFields();
+                        NextPlayerAlert(Settings.LangStringValue(17) + "1");
+                    }
+                    else
+                    {
+                        SeeGamingBoard(PlayerTwo, PlayerOne);
+                        PlayerBool = false;
+                        ShipCount = 15;
+                        Alert.Text = Settings.LangStringValue(15) + " 15";
+                        NextPlayerAlert(Settings.LangStringValue(17) + "2");
+                    }
+                }
+                else
+                {
+                    SeeGamingBoard(PlayerOne, PlayerTwo);
+                    for (int i = 0; i < 15; i++)
+                        PlayerTwo.SetRandomOwnFields();
+                    PlayerBool = true;
+                    StepGame = false;
+                    NextPlayerAlert(Settings.LangStringValue(17) + "1");
+                }
+            }
+            else
+            {
+
+            }
+        }
     }
     private void Selected_Field(object sender, EventArgs e)
+    {
+        if (StepGame == true)
+        {
+            SetShipID((Button)sender);
+        }
+        else if (StepGame == false)
+        {
+            //SetShipID((Button)sender);
+        }
+    }
+    //private bool StepGame {  get; set; }
+    //true - select
+    //false - attack
+    //private bool PlayerBool { get; set; }
+    //true - first player
+    //false - second player
+    private void ConfrimSelectButton_Clicked(object sender, EventArgs e)
+    {
+        if (ShipCount == 0)
+        {
+            if (StepGame == true)
+            {
+                Time = 121;
+                SeeOwnFields = true;
+                SeeMyBoard.Text = Settings.LangStringValue(14);
+                if (PlayerBool == true)
+                {
+                    ConfrimSelect(PlayerOne);
+                    if (Bot == true)
+                    {
+                        SeeGamingBoard(PlayerOne, PlayerTwo);
+                        PlayerBool = true;
+                        StepGame = false;
+                        for (int i = 0; i < 15; i++)
+                            PlayerTwo.SetRandomOwnFields();
+                        NextPlayerAlert(Settings.LangStringValue(17) + "1");
+                    }
+                    else
+                    {
+                        SeeGamingBoard(PlayerTwo, PlayerOne);
+                        PlayerBool = false;
+                        ShipCount = 15;
+                        Alert.Text = Settings.LangStringValue(15) + " 15";
+                        NextPlayerAlert(Settings.LangStringValue(17) + "2");
+                    }
+                }
+                else
+                {
+                    SeeGamingBoard(PlayerOne, PlayerTwo);
+                    ConfrimSelect(PlayerTwo);
+                    PlayerBool = true;
+                    StepGame = false;
+                    NextPlayerAlert(Settings.LangStringValue(17) + "1");
+                }
+            }
+            else
+            {
+
+            }
+        }
+    }
+
+    private void SetShipID(Button button)
+    {
+        if (button.BackgroundColor == Colors.Gray)
+        {
+            if (ShipCount > 0)
+            {
+                ShipCount--;
+                ShipID.Add(button.Text);
+                button.BackgroundColor = Colors.Yellow;
+                Alert.Text = Settings.LangStringValue(15) + " " + ShipCount.ToString();
+            }
+        }
+        else
+        {
+            ShipCount++;
+            ShipID.Remove(button.Text);
+            button.BackgroundColor = Colors.Gray;
+            Alert.Text = Settings.LangStringValue(15) + " " + ShipCount.ToString();
+        }
+    }
+
+    private void SetAttackID()
     {
 
     }
 
+    private void ConfrimSelect(Player player)
+    {
+        List<string> ID = new List<string>();
+        List<Button> buttonList = FindButton();
+        foreach (Button button in buttonList)
+            if (button.BackgroundColor == Colors.Yellow)
+                ID.Add(button.Text);
+        player.SetOwnFields(ID.ToArray());
+    }
+
+    private void ConfrimAttackID()
+    {
+
+    }
+
+    private void SeeGamingBoard(Player player1, Player player2)
+    {
+        List<Button> buttonList = FindButton();
+        foreach (Button button in buttonList)
+            if (button != null)
+                player1.SeeGamingFields(button, player2);
+    }
+    private List<Button> FindButton()
+    {
+        string id = "";
+        List<Button> buttons = new List<Button>();
+
+        for (int i = 0; i < 7; i++)
+        {
+            for (int j = 0; j < 7; j++)
+            {
+                switch (i)
+                {
+                    case 0:
+                        id = "A";
+                        break;
+                    case 1:
+                        id = "B";
+                        break;
+                    case 2:
+                        id = "C";
+                        break;
+                    case 3:
+                        id = "D";
+                        break;
+                    case 4:
+                        id = "E";
+                        break;
+                    case 5:
+                        id = "F";
+                        break;
+                    case 6:
+                        id = "G";
+                        break;
+                }
+
+                buttons.Add(this.FindByName<Button>((id + (j + 1)).ToString()));
+            }
+        }
+
+        return buttons;
+    }
+
+    private void NextPlayerAlert(string player)
+    {
+        ExitButton_Clicked(this, null);
+        YesExit.IsVisible = false;
+        AnnouncementText.Text = player;
+        NoExit.Text = "OK";
+
+        //TODO: add end game script
+    }
     private void ExitButton_Clicked(object sender, EventArgs e)
     {
         ScrollView.IsVisible = false;
@@ -97,6 +312,8 @@ public partial class _7x7 : ContentPage
         YesExit.IsVisible = true;
         NoExit.IsVisible = true;
         StopGame = true;
+        AnnouncementText.Text = Settings.LangStringValue(9);
+        NoExit.Text = Settings.LangStringValue(11);
     }
     private void YesExit_Clicked(object sender, EventArgs e)
     {
@@ -149,6 +366,27 @@ public partial class _7x7 : ContentPage
             size = 26;
         AnnouncementText.FontSize = size;
     }
+    private void GameControl_ResponsiveFont(object sender, EventArgs e)
+    {
+        double size;
+        if (ScrollView.Width < 400)
+            size = 14;
+        else if (ScrollView.Width < 500)
+            size = 17;
+        else if (ScrollView.Width < 600)
+            size = 19;
+        else if (ScrollView.Width < 700)
+            size = 22;
+        else if (ScrollView.Width < 800)
+            size = 24;
+        else
+            size = 26;
+        Alert.FontSize = size;
+        size /= 1.5;
+        RandomSelectButton.FontSize = size;
+        ConfrimSelectButton.FontSize = size;
+        SeeMyBoard.FontSize = size;
+    }
 
     private void MainLayout_SizeChanged(object sender, EventArgs e)
     {
@@ -175,5 +413,43 @@ public partial class _7x7 : ContentPage
 
         GridBoard.WidthRequest = size;
         GridGameControl.WidthRequest = size;
+
+    }
+
+    private void RandomSelectButton_Clicked(object sender, EventArgs e)
+    {
+        Time = 0;
+        TimeText.Text = "02:00";
+    }
+
+    private void SeeMyBoard_Clicked(object sender, EventArgs e)
+    {
+        if (PlayerBool == true && StepGame == false)
+        {
+            SeeOwnBoard(PlayerOne, PlayerTwo);
+        }
+        else if (StepGame == false)
+        {
+            SeeOwnBoard(PlayerTwo, PlayerOne);
+        }
+    }
+
+    private void SeeOwnBoard(Player playerOne, Player playerTwo)
+    {
+        if (SeeOwnFields == true && StepGame == false)
+        {
+            SeeOwnFields = false;
+            List<Button> buttonList = FindButton();
+            foreach (Button button in buttonList)
+                if (button != null)
+                    playerOne.SeeOwnFields(button);
+            SeeMyBoard.Text = Settings.LangStringValue(16);
+        }
+        else if (StepGame == false)
+        {
+            SeeOwnFields = true;
+            SeeGamingBoard(playerOne, playerTwo);
+            SeeMyBoard.Text = Settings.LangStringValue(14);
+        }
     }
 }
