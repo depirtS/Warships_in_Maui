@@ -1,6 +1,7 @@
 ﻿using Microsoft.Maui.Controls;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,8 @@ namespace Warships
     public class Player
     {
         private int[,] OwnFields;
-        private bool Board; 
+        private bool Board;
+        Random random;
         //true - 5x5 false - 7x7
         //0 - field not selected
         //1 - field selected
@@ -37,24 +39,26 @@ namespace Warships
             else
                 return 7;
         }
-        private int[] RandomID()
-        {
-            int x = BoardSize();
-            Random random = new Random();
-            int FirstID = random.Next(0, x);
-            int SecondID = random.Next(0, x);
-
-            return new[] { FirstID, SecondID };
-        }
 
         public Player(bool board)
         {
-            if(board)
+            if (board)
+            {
                 OwnFields = new int[5, 5];
+                for (int i = 0; i < 5; i++)
+                    for (int j = 0; j < 5; j++)
+                        OwnFields[i, j] = 0;
+            }
             else
+            {
                 OwnFields = new int[7, 7];
+                for (int i = 0; i < 7; i++)
+                    for (int j = 0; j < 7; j++)
+                        OwnFields[i, j] = 0;
+            }
 
             Board = board;
+            random = new Random();
         }
 
         public void SetOwnFields(params string[] SelectedField)
@@ -64,58 +68,31 @@ namespace Warships
             foreach (var ID in SelectedField)
             {
                 FirstID = ReturnFirstIDField(ID);
-                SecondID = int.Parse(ID.Substring(1, 1));
+                SecondID = int.Parse(ID.Substring(1, 1))-1;
                 OwnFields[FirstID, SecondID] = 1;
             }
         }
 
         public void SetRandomOwnFields()
         {
-            int[] ID = RandomID();
-            int FirstID = ID[0];
-            int SecondID = ID[1];
-
-            foreach (int test in OwnFields)
+            int x = BoardSize();
+            int FirstID, SecondID;
+            do
             {
-                if (test == 1)
-                {
-                    SetRandomOwnFields();
-                    break;
-                }
-                else
-                {
-                    string id = "";
-                    switch (FirstID)
-                    {
-                        case 0: id = "A";
-                            break;
-                        case 1: id = "B";
-                            break;
-                        case 2: id = "C";
-                            break;
-                        case 3: id = "D";
-                            break;
-                        case 4: id = "E";
-                            break;
-                        case 5: id = "F";
-                            break;
-                        case 6: id = "G";
-                            break;
-                        default: id = "N";
-                            break;
-                    }
-                    SetOwnFields(id += SecondID.ToString());
-                }
-            }
+                FirstID = random.Next(0, x);
+                SecondID = random.Next(0, x);
+            } while (OwnFields[FirstID, SecondID] == 1);
+
+            OwnFields[FirstID, SecondID] = 1;
         }
 
-            public void SeeOwnFields(Button field, Player secondPlayer)
+            public void SeeOwnFields(Button field)
         {
             string ID = field.Text;
             int FirstID = ReturnFirstIDField(ID);
-            int SecondID = int.Parse(ID.Substring(1, 1));
+            int SecondID = int.Parse(ID.Substring(1, 1))-1;
 
-            if (secondPlayer.OwnFields[FirstID, SecondID] == 2)
+            if (OwnFields[FirstID, SecondID] == 2)
                 field.BackgroundColor = Colors.Red;
             else if (OwnFields[FirstID, SecondID] == 1)
                 field.BackgroundColor = Colors.Yellow;
@@ -123,63 +100,38 @@ namespace Warships
                 field.BackgroundColor = Colors.Gray;
         }
 
-        public void SeeGamingFields(Button field)
+        public void SeeGamingFields(Button field,Player player)
         {
             string ID = field.Text;
             int FirstID = ReturnFirstIDField(ID);
-            int SecondID = int.Parse(ID.Substring(1, 1));
+            int SecondID = int.Parse(ID.Substring(1, 1)) - 1;
 
-            if (OwnFields[FirstID, SecondID] == 2)
+            if (player.OwnFields[FirstID, SecondID] == 2)
                 field.BackgroundColor = Colors.DarkRed;
             else
                 field.BackgroundColor = Colors.Gray;
         }
 
-        public void AttackField(string ID)
+        public void AttackField(string ID, Player player)
         {
             int FirstID = ReturnFirstIDField(ID);
-            int SecondID = int.Parse(ID.Substring(1, 1));
-            OwnFields[FirstID, SecondID] = 2;
+            int SecondID = int.Parse(ID.Substring(1, 1)) - 1;
+            player.OwnFields[FirstID, SecondID] = 2;
         }
-        
-        public void AttackRandomField()
-        {
-            int[] ID = RandomID();
-            int FirstID = ID[0];
-            int SecondID = ID[1];
 
-            foreach(int test in OwnFields)
+        public void AttackRandomField(Player player)
+        {
+            int x = BoardSize();
+            int FirstID, SecondID;
+
+            do
             {
-                if(test == 2)
-                {
-                    AttackRandomField();
-                    break;
-                }
-                else
-                {
-                    string id = "";
-                    switch (FirstID)
-                    {
-                        case 0: id = "A";
-                            break;
-                        case 1: id = "B";
-                            break;
-                        case 2: id = "C";
-                            break;
-                        case 3: id = "D";
-                            break; 
-                        case 4: id = "E";
-                            break;
-                        case 5: id = "F";
-                            break;
-                        case 6: id = "G";
-                            break;
-                        default: id = "N";
-                            break;
-                    }
-                    AttackField(id += SecondID.ToString());
-                }
-            }
+                FirstID = random.Next(0, x);
+                SecondID = random.Next(0, x);
+            } while (player.OwnFields[FirstID, SecondID] != 2);
+
+            AttackField($"{ReturnFirstIDField(FirstID.ToString())}{SecondID}",player);
         }
+
     }
 }
