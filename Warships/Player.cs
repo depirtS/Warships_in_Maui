@@ -10,7 +10,8 @@ namespace Warships
 {
     public class Player
     {
-        public int[,] OwnFields {  get; set; }
+        public int[,] OwnFields { get; set; }
+        public List<string> HitAttacksID { get; set; }
         private bool Board;
         Random random;
         //true - 5x5 false - 7x7
@@ -19,8 +20,8 @@ namespace Warships
         //2 - your attack to enemy field
         private int ReturnFirstIDField(string ID)
         {
-            ID = ID.Substring(0,1);
-            switch(ID)
+            ID = ID.Substring(0, 1);
+            switch (ID)
             {
                 case "A": return 0;
                 case "B": return 1;
@@ -58,6 +59,7 @@ namespace Warships
             }
 
             Board = board;
+            HitAttacksID = new List<string>();
             random = new Random();
         }
 
@@ -68,7 +70,7 @@ namespace Warships
             foreach (var ID in SelectedField)
             {
                 FirstID = ReturnFirstIDField(ID);
-                SecondID = int.Parse(ID.Substring(1, 1))-1;
+                SecondID = int.Parse(ID.Substring(1, 1)) - 1;
                 OwnFields[FirstID, SecondID] = 1;
             }
         }
@@ -86,11 +88,11 @@ namespace Warships
             OwnFields[FirstID, SecondID] = 1;
         }
 
-            public void SeeOwnFields(Button field)
+        public void SeeOwnFields(Button field)
         {
             string ID = field.Text;
             int FirstID = ReturnFirstIDField(ID);
-            int SecondID = int.Parse(ID.Substring(1, 1))-1;
+            int SecondID = int.Parse(ID.Substring(1, 1)) - 1;
 
             if (OwnFields[FirstID, SecondID] == 2)
                 field.BackgroundColor = Colors.Red;
@@ -100,7 +102,7 @@ namespace Warships
                 field.BackgroundColor = Colors.Gray;
         }
 
-        public void SeeGamingFields(Button field,Player player)
+        public void SeeGamingFields(Button field, Player player)
         {
             string ID = field.Text;
             int FirstID = ReturnFirstIDField(ID);
@@ -110,16 +112,24 @@ namespace Warships
                 field.BackgroundColor = Colors.DarkRed;
             else
                 field.BackgroundColor = Colors.Gray;
+            for (int i = 0; i < 15; i++)
+            {
+                if (HitAttacksID.Count > i)
+                    if (HitAttacksID[i] == ID)
+                        field.BackgroundColor = Colors.Red;
+            }
         }
 
-        public void AttackField(string ID)
+        public void AttackField(string ID, Player player)
         {
             int FirstID = ReturnFirstIDField(ID);
             int SecondID = int.Parse(ID.Substring(1, 1)) - 1;
+            if (OwnFields[FirstID, SecondID] == 1)
+                player.HitAttacksID.Add(ID);
             this.OwnFields[FirstID, SecondID] = 2;
         }
 
-        public void AttackRandomField()
+        public void AttackRandomField(Player player)
         {
             int x = BoardSize();
             int FirstID, SecondID;
@@ -130,7 +140,37 @@ namespace Warships
                 SecondID = random.Next(0, x);
             } while (this.OwnFields[FirstID, SecondID] == 2);
 
+            if(this.OwnFields[FirstID, SecondID] == 1)
+            {
+                string id = "";
+                switch (FirstID)
+                {
+                    case 0:
+                        id = "A";
+                        break;
+                    case 1:
+                        id = "B";
+                        break;
+                    case 2:
+                        id = "C";
+                        break;
+                    case 3:
+                        id = "D";
+                        break;
+                    case 4:
+                        id = "E";
+                        break;
+                    case 5:
+                        id = "F";
+                        break;
+                    case 6:
+                        id = "G";
+                        break;
+                }
+                player.HitAttacksID.Add(id + (SecondID + 1).ToString());
+            }
             this.OwnFields[FirstID, SecondID] = 2;
+
         }
 
     }

@@ -145,14 +145,14 @@ public partial class _7x7 : ContentPage
             {
                 if (PlayerBool == true)
                 {
-                    PlayerTwo.AttackRandomField();
+                    PlayerTwo.AttackRandomField(PlayerOne);
                     if (Bot == true)
                     {
                         SeeGamingBoard(PlayerOne, PlayerTwo);
                         AttackID = "";
                         AttackCount = 1;
                         PlayerBool = true;
-                        PlayerOne.AttackRandomField();
+                        PlayerOne.AttackRandomField(PlayerTwo);
                         NextPlayerAlert(Settings.LangStringValue(17) + "1");
                     }
                     else
@@ -229,14 +229,14 @@ public partial class _7x7 : ContentPage
             {
                 if (PlayerBool == true)
                 {
-                    ConfrimAttack(PlayerTwo);
+                    ConfrimAttack(PlayerTwo,PlayerOne);
                     if (Bot == true)
                     {
                         AttackID = "";
                         AttackCount = 1;
                         SeeGamingBoard(PlayerOne, PlayerTwo);
                         PlayerBool = true;
-                        PlayerOne.AttackRandomField();
+                        PlayerOne.AttackRandomField(PlayerTwo);
                         NextPlayerAlert(Settings.LangStringValue(17) + "1");
                     }
                     else
@@ -304,9 +304,9 @@ public partial class _7x7 : ContentPage
         player.SetOwnFields(ShipID.ToArray());
     }
 
-    private void ConfrimAttack(Player player1)
+    private void ConfrimAttack(Player player1, Player player2)
     {
-        player1.AttackField(AttackID);
+        player1.AttackField(AttackID, player2);
     }
 
     private void SeeGamingBoard(Player player1, Player player2)
@@ -369,34 +369,20 @@ public partial class _7x7 : ContentPage
 
     private void EndGame()
     {
-        bool ifOneLose = true;
-        bool ifTwoLose = true;
-
-        for (int i = 0; i < 5; i++)
-            for (int j = 0; j < 5; j++)
-            {
-                if (PlayerOne.OwnFields[i, j] == 1 && ifOneLose == true)
-                    ifOneLose = false;
-                else if (i == 4 && j == 4 && ifOneLose == true)
-                {
-                    NoExit.IsVisible = false;
-                    YesExit.IsVisible = true;
-                    AnnouncementText.Text = Settings.LangStringValue(19) + "2";
-                    YesExit.Text = "OK";
-                    break;
-                }
-
-                if (PlayerTwo.OwnFields[i, j] == 1 && ifTwoLose == true)
-                    ifTwoLose = false;
-                else if (i == 4 && j == 4 && ifTwoLose == true)
-                {
-                    NoExit.IsVisible = false;
-                    YesExit.IsVisible = true;
-                    AnnouncementText.Text = Settings.LangStringValue(19) + "1";
-                    YesExit.Text = "OK";
-                    break;
-                }
-            }
+        if (PlayerOne.HitAttacksID.Count == 15)
+        {
+            NoExit.IsVisible = false;
+            YesExit.IsVisible = true;
+            AnnouncementText.Text = Settings.LangStringValue(19) + "1";
+            YesExit.Text = "OK";
+        }
+        if (PlayerTwo.HitAttacksID.Count == 15)
+        {
+            NoExit.IsVisible = false;
+            YesExit.IsVisible = true;
+            AnnouncementText.Text = Settings.LangStringValue(19) + "2";
+            YesExit.Text = "OK";
+        }
     }
 
     private void ExitButton_Clicked(object sender, EventArgs e)
