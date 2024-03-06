@@ -10,7 +10,7 @@ namespace Warships
 {
     public class Player
     {
-        private int[,] OwnFields;
+        public int[,] OwnFields {  get; set; }
         private bool Board;
         Random random;
         //true - 5x5 false - 7x7
@@ -112,14 +112,14 @@ namespace Warships
                 field.BackgroundColor = Colors.Gray;
         }
 
-        public void AttackField(string ID, Player player)
+        public void AttackField(string ID)
         {
             int FirstID = ReturnFirstIDField(ID);
             int SecondID = int.Parse(ID.Substring(1, 1)) - 1;
-            player.OwnFields[FirstID, SecondID] = 2;
+            this.OwnFields[FirstID, SecondID] = 2;
         }
 
-        public void AttackRandomField(Player player)
+        public void AttackRandomField()
         {
             int x = BoardSize();
             int FirstID, SecondID;
@@ -128,9 +128,9 @@ namespace Warships
             {
                 FirstID = random.Next(0, x);
                 SecondID = random.Next(0, x);
-            } while (player.OwnFields[FirstID, SecondID] != 2);
+            } while (this.OwnFields[FirstID, SecondID] == 2);
 
-            AttackField($"{ReturnFirstIDField(FirstID.ToString())}{SecondID}",player);
+            this.OwnFields[FirstID, SecondID] = 2;
         }
 
     }

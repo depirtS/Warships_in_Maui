@@ -3,6 +3,8 @@
 public partial class _5x5 : ContentPage
 {
     private Settings Settings { get; set; } 
+    private Player PlayerOne { get; set; }
+    private Player PlayerTwo { get; set; }
     private bool Bot {  get; set; }
     private bool StopGame {  get; set; }
     private bool StepGame {  get; set; }
@@ -14,10 +16,10 @@ public partial class _5x5 : ContentPage
     private bool SeeOwnFields { get; set; }
     private IDispatcherTimer Timer { get; set; }
     private int Time {  get; set; }
-    private Player PlayerOne { get; set; }
-    private Player PlayerTwo { get; set; }
     private int ShipCount { get; set; }
+    private int AttackCount { get; set; }
     private List<string> ShipID { get; set; }
+    private string AttackID { get; set; }
     protected override bool OnBackButtonPressed()
     {
         ExitButton_Clicked(this,null);
@@ -42,6 +44,9 @@ public partial class _5x5 : ContentPage
 
         ShipCount = 9;
         ShipID = new List<string>();
+
+        AttackCount = 1;
+        AttackID = "";
 
         AnnouncementText.Text = Settings.LangStringValue(9);
         YesExit.Text = Settings.LangStringValue(10);
@@ -94,9 +99,9 @@ public partial class _5x5 : ContentPage
         }
         else if(StopGame == false)
         {
+            Time = 121;
             if (StepGame == true)
             {
-                Time = 121;
                 SeeOwnFields = true;
                 SeeMyBoard.Text = Settings.LangStringValue(14);
                 if (PlayerBool == true)
@@ -111,6 +116,7 @@ public partial class _5x5 : ContentPage
                         ShipCount = 0;
                         for (int i = 0; i < 9; i++)
                             PlayerTwo.SetRandomOwnFields();
+                        Alert.Text = Settings.LangStringValue(18);
                         NextPlayerAlert(Settings.LangStringValue(17) + "1");
                     }
                     else
@@ -125,6 +131,7 @@ public partial class _5x5 : ContentPage
                 else
                 {
                     SeeGamingBoard(PlayerOne, PlayerTwo);
+                    Alert.Text = Settings.LangStringValue(18);
                     for (int i = 0; i < 9; i++)
                         PlayerTwo.SetRandomOwnFields();
                     PlayerBool = true;
@@ -134,7 +141,27 @@ public partial class _5x5 : ContentPage
             }
             else
             {
-
+                if (PlayerBool == true)
+                {
+                    PlayerTwo.AttackRandomField();
+                    if (Bot == true)
+                    {
+                        SeeGamingBoard(PlayerOne, PlayerTwo);
+                        AttackID = "";
+                        AttackCount = 1;
+                        PlayerBool = true;
+                        PlayerOne.AttackRandomField();
+                        NextPlayerAlert(Settings.LangStringValue(17) + "1");
+                    }
+                    else
+                    {
+                        //TODO: game for two players
+                    }
+                }
+                else
+                {
+                    //TODO: game for two players
+                }
             }
         }
     }
@@ -146,7 +173,7 @@ public partial class _5x5 : ContentPage
         }
         else if (StepGame == false)
         {
-            //SetShipID((Button)sender);
+            SetAttackID((Button)sender);
         }
     }
     //private bool StepGame {  get; set; }
@@ -158,9 +185,9 @@ public partial class _5x5 : ContentPage
     private void ConfrimSelectButton_Clicked(object sender, EventArgs e)
     {   if(ShipCount == 0)
         {
+            Time = 121;
             if (StepGame == true)
             {
-                Time = 121;
                 SeeOwnFields = true;
                 SeeMyBoard.Text = Settings.LangStringValue(14);
                 if (PlayerBool == true)
@@ -169,6 +196,7 @@ public partial class _5x5 : ContentPage
                     if (Bot == true)
                     {
                         SeeGamingBoard(PlayerOne, PlayerTwo);
+                        Alert.Text = Settings.LangStringValue(18);
                         PlayerBool = true;
                         StepGame = false;
                         for (int i = 0; i < 9; i++)
@@ -187,15 +215,36 @@ public partial class _5x5 : ContentPage
                 else
                 {
                     SeeGamingBoard(PlayerOne, PlayerTwo);
+                    Alert.Text = Settings.LangStringValue(18);
                     ConfrimSelect(PlayerTwo);
                     PlayerBool = true;
                     StepGame = false;
                     NextPlayerAlert(Settings.LangStringValue(17) + "1");
                 }
             }
-            else
+            else if(AttackID.Length > 0)
             {
-
+                if(PlayerBool == true)
+                {
+                    ConfrimAttack(PlayerTwo);
+                    if(Bot == true)
+                    {
+                        AttackID = "";
+                        AttackCount = 1;
+                        SeeGamingBoard(PlayerOne, PlayerTwo);
+                        PlayerBool = true;
+                        PlayerOne.AttackRandomField();
+                        NextPlayerAlert(Settings.LangStringValue(17) + "1");
+                    }
+                    else
+                    {
+                        //TODO: game for two players
+                    }
+                }
+                else
+                {
+                    //TODO: game for two players
+                }
             }
         }
     }
@@ -221,24 +270,40 @@ public partial class _5x5 : ContentPage
         }
     }
 
-    private void SetAttackID()
+    private void SetAttackID(Button button)
     {
-
+        if(button.BackgroundColor == Colors.Gray && AttackCount == 0)
+        {
+            Button atackButton = this.FindByName<Button>(AttackID);
+            atackButton.BackgroundColor = Colors.Gray;
+            button.BackgroundColor = Colors.Orange;
+            AttackID = button.Text;
+        }
+        else if( button.BackgroundColor == Colors.Orange)
+        {
+            AttackCount++;
+            AttackID = "";
+            button.BackgroundColor = Colors.Gray;
+        }
+        else if(button.BackgroundColor == Colors.Gray && AttackCount != -1)
+        {
+            if (AttackCount > 0)
+            {
+                AttackCount--;
+                AttackID = button.Text;
+                button.BackgroundColor = Colors.Orange;
+            }
+        }
     }
 
     private void ConfrimSelect(Player player)
     {
-        List<string> ID = new List<string>();
-        List<Button> buttonList = FindButton();
-        foreach (Button button in buttonList)
-            if (button.BackgroundColor == Colors.Yellow)
-                ID.Add(button.Text);
-        player.SetOwnFields(ID.ToArray());
+        player.SetOwnFields(ShipID.ToArray());
     }
 
-    private void ConfrimAttackID()
+    private void ConfrimAttack(Player player1)
     {
-
+        player1.AttackField(AttackID);
     }
 
     private void SeeGamingBoard(Player player1, Player player2)
@@ -285,13 +350,47 @@ public partial class _5x5 : ContentPage
 
     private void NextPlayerAlert(string player)
     {
+
         ExitButton_Clicked(this, null);
         YesExit.IsVisible = false;
         AnnouncementText.Text = player;
         NoExit.Text = "OK";
-
-        //TODO: add end game script
+        
+        EndGame();
     }
+
+    private void EndGame()
+    {
+        bool ifOneLose = true;
+        bool ifTwoLose = true;
+
+        for (int i = 0; i < 5; i++)
+            for (int j = 0; j < 5; j++)
+            {
+                if (PlayerOne.OwnFields[i, j] == 1 && ifOneLose == true)
+                    ifOneLose = false;
+                else if (i == 4 && j == 4 && ifOneLose == true)
+                {
+                    NoExit.IsVisible = false;
+                    YesExit.IsVisible = true;
+                    AnnouncementText.Text = Settings.LangStringValue(19) + "2";
+                    YesExit.Text = "OK";
+                    break;
+                }
+
+                if (PlayerTwo.OwnFields[i, j] == 1 && ifTwoLose == true)
+                    ifTwoLose = false;
+                else if (i == 4 && j == 4 && ifTwoLose == true)
+                {
+                    NoExit.IsVisible = false;
+                    YesExit.IsVisible = true;
+                    AnnouncementText.Text = Settings.LangStringValue(19) + "1";
+                    YesExit.Text = "OK";
+                    break;
+                }
+            }
+    }
+
     private void ExitButton_Clicked(object sender, EventArgs e)
     {
         ScrollView.IsVisible = false;
@@ -411,10 +510,13 @@ public partial class _5x5 : ContentPage
     {
         Time = 0;
         TimeText.Text = "02:00";
+        SeeOwnFields = true;
     }
 
     private void SeeMyBoard_Clicked(object sender, EventArgs e)
     {
+        AttackID = "";
+        AttackCount = 1;
         if (PlayerBool == true && StepGame == false)
         {
             SeeOwnBoard(PlayerOne,PlayerTwo); 
@@ -430,6 +532,7 @@ public partial class _5x5 : ContentPage
         if(SeeOwnFields == true && StepGame == false)
         {
             SeeOwnFields = false;
+            AttackCount = -1;
             List<Button> buttonList = FindButton();
             foreach (Button button in buttonList)
                 if (button != null)
@@ -438,6 +541,7 @@ public partial class _5x5 : ContentPage
         }
         else if(StepGame == false)
         {
+            AttackCount = 1;
             SeeOwnFields = true;
             SeeGamingBoard(playerOne,playerTwo);
             SeeMyBoard.Text = Settings.LangStringValue(14);
