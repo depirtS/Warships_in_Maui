@@ -5,6 +5,7 @@
         private bool PlayerBot { get; set; }
         private int StepMenu { get; set; }
         private Settings Settings { get; set; }
+        private Button SelectedLang { get; set; }
 
         public MainPage()
         {
@@ -17,20 +18,22 @@
         private void InitalizeStartValues()
         {
             StepMenu = 0;
+            SelectedLang = TextPl;
+            TextPl.BackgroundColor = Colors.DarkGray;
         }
         private void GoGameOption(object sender, EventArgs e)
         {
             if (GoGame.Text.Equals(Settings.LangStringValue(0)))
             {
                 ReturnButton.IsVisible = true;
-                GoGame.Text = Settings.LangStringValue(2);;
+                GoGame.Text = Settings.LangStringValue(2);
                 Setting.Text = Settings.LangStringValue(3);
             }
             else if (GoGame.Text.Equals(Settings.LangStringValue(6)))
             {
-                if (CheckPl.IsChecked == true)
+                if (TextPl.BackgroundColor == Colors.DarkGray)
                     Settings.SetLangID(0);
-                if (CheckEn.IsChecked == true)
+                if (TextEn.BackgroundColor == Colors.DarkGray)
                     Settings.SetLangID(1);
 
                 InitalizeChangeLanguages();
@@ -70,9 +73,7 @@
             GoGame.Text = Settings.LangStringValue(6);
             Setting.IsVisible = false;
             ReturnButton.IsVisible = true;
-            CheckPl.IsVisible = true;
             TextPl.IsVisible = true;
-            CheckEn.IsVisible = true;
             TextEn.IsVisible = true;
             }
             else if(Setting.Text.Equals(Settings.LangStringValue(3)))
@@ -88,16 +89,10 @@
                 if (PlayerBot == true)
                 {
                     Navigation.PushModalAsync(new _7x7(PlayerBot));
-                    //_7x7 secondPage = new _7x7();
-                    //this.Content = secondPage.Content;
-                    //TODO: gra na planszy 7x7 z botem
                 }
                 else
                 {
                     Navigation.PushModalAsync(new _7x7(PlayerBot));
-                    //_7x7 secondPage = new _7x7();
-                    //this.Content = secondPage.Content;
-                    //TODO: gra na planszy 7x7 z graczem
                 }
             }
         }
@@ -113,9 +108,7 @@
             InitalizeChangeLanguages();
             Setting.IsVisible = true;
             ReturnButton.IsVisible = false;
-            CheckPl.IsVisible = false;
             TextPl.IsVisible = false;
-            CheckEn.IsVisible = false;
             TextEn.IsVisible = false;
         }
         private void SetMenu(string val1, string val2)
@@ -123,6 +116,49 @@
             GoGame.Text = val1;
             Setting.Text = val2;
             StepMenu--;
+        }
+
+        private void SelectLanguage_Clicked(object sender, EventArgs e)
+        {
+            string pl = Settings.LangStringValue(7);
+            string en = Settings.LangStringValue(8);
+            Button button = (Button)sender;
+            switch (button.Text)
+            {
+                case var text when text == pl:
+                    SelectedLang.BackgroundColor = Colors.Gray;
+                    SelectedLang = button;
+                    SelectedLang.BackgroundColor = Colors.DarkGray;
+                    break;
+                case var text when text == en:
+                    SelectedLang.BackgroundColor = Colors.Gray;
+                    SelectedLang = button;
+                    SelectedLang.BackgroundColor = Colors.DarkGray;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void MainGrid_SizeChanged(object sender, EventArgs e)
+        {
+            int width = (int)MainGrid.Width;
+            int height = (int)MainGrid.Height;
+            if(width < height){
+                width /= 7;
+                ReturnButton.HeightRequest = ReturnButton.WidthRequest = TextPl.HeightRequest = TextEn.HeightRequest = Setting.HeightRequest = GoGame.HeightRequest = width;
+                TextPl.WidthRequest = TextEn.WidthRequest = Setting.WidthRequest = GoGame.WidthRequest = width*3;
+                TextPl.FontSize = TextEn.FontSize = Setting.FontSize = GoGame.FontSize = width/3;
+
+            }
+            else
+            {
+                height /= 7;
+                ReturnButton.HeightRequest = ReturnButton.WidthRequest = TextPl.HeightRequest = TextEn.HeightRequest = Setting.HeightRequest = GoGame.HeightRequest = height;
+                TextPl.WidthRequest = TextEn.WidthRequest = Setting.WidthRequest = GoGame.WidthRequest = height*3;
+                TextPl.FontSize = TextEn.FontSize = Setting.FontSize = GoGame.FontSize = height/3;
+
+            }
         }
     }
 

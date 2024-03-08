@@ -78,8 +78,6 @@ namespace Warships
         {
             return Lang[LangID, ValueID];
         }
-
-
     }
 
 }

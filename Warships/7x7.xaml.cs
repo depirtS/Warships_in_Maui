@@ -296,8 +296,8 @@ public partial class _7x7 : ContentPage
     {
         if (button.BackgroundColor == Colors.Gray && AttackCount == 0)
         {
-            Button atackButton = this.FindByName<Button>(AttackID);
-            atackButton.BackgroundColor = Colors.Gray;
+            Button attackButton = this.FindByName<Button>(AttackID);
+            attackButton.BackgroundColor = Colors.Gray;
             button.BackgroundColor = Colors.Orange;
             AttackID = button.Text;
         }
