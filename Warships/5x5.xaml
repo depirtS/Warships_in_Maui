@@ -64,9 +64,9 @@
                 x:Name="MainLayout"
                 SizeChanged="MainLayout_SizeChanged">
                 <!-- Grid 1 -->
-                <Grid MinimumWidthRequest="400" SizeChanged="SetRaitoBoard" x:Name="GridBoard">
+                <Grid MinimumWidthRequest="400" x:Name="GridBoard">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="2*"/>
+                        <RowDefinition/>
                         <RowDefinition/>
                         <RowDefinition/>
                         <RowDefinition/>
@@ -84,9 +84,12 @@
                         <ColumnDefinition Width="0.3*"/>
                     </Grid.ColumnDefinitions>
 
-                    <ImageButton Source="ship.png" Grid.ColumnSpan="2" 
-                             Style="{StaticResource ExitButton}" 
-                             Clicked="ExitButton_Clicked"/>
+                    <ImageButton
+                    Source="ship.png" Grid.ColumnSpan="2" 
+                    Style="{StaticResource ExitButton}" 
+                    Clicked="ExitButton_Clicked"
+                    Margin="0,0,0,15"
+                    x:Name="ExitButton"/>
 
                     <Label
                     VerticalOptions="Center"

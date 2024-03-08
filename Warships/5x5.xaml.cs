@@ -61,11 +61,12 @@ public partial class _5x5 : ContentPage
         Time = 121;
 
         Timer = Dispatcher.CreateTimer();
-        Timer.Interval = TimeSpan.FromSeconds(0.1);
+        Timer.Interval = TimeSpan.FromSeconds(0.01);
         Timer.Tick += (s, e) =>
         {
             MainLayout_SizeChanged(this, null);
-            SetRaitoBoard(GridBoard, null);
+            ResponsiveFont(this, null);
+            GameControl_ResponsiveFont(this, null);
             StopGame = false;
             Timer.Stop();
         };
@@ -432,57 +433,23 @@ public partial class _5x5 : ContentPage
         StopGame = false;
     }
 
-    private void SetRaitoBoard(object sender, EventArgs e)
-    {
-        Grid views = (Grid)sender;
-        double raito = 1.3;
-        if (MainLayout.Height > MainLayout.Width)
-        {
-            views.HeightRequest = MainLayout.Width / raito;
-            views.WidthRequest = MainLayout.Width / raito;
-        }
-        else
-        {
-            views.HeightRequest = MainLayout.Height / raito;
-            views.WidthRequest = MainLayout.Height / raito;
-        }
-    }
-
     private void ResponsiveFont(object sender, EventArgs e)
     {
-        int size;
-        if(AnnouncementBox.Width < 400)
-            size = 14;
-        else if(AnnouncementBox.Width < 500)
+        int size = (int)AnnouncementBox.Width / 50;
+        if (size < 17)
             size = 17;
-        else if (AnnouncementBox.Width < 600)
-            size = 19;
-        else if(AnnouncementBox.Width < 700)
-            size = 22;
-        else if(AnnouncementBox.Width < 800)
-            size = 24;
-        else
-            size = 26;
+
         AnnouncementText.FontSize = size;
     }
 
     private void GameControl_ResponsiveFont(object sender, EventArgs e)
     {
-        double size;
-        if (ScrollView.Width < 400)
-            size = 14;
-        else if (ScrollView.Width < 500)
+        double size = (int)ScrollView.Width / 50;
+        if (size < 17)
             size = 17;
-        else if (ScrollView.Width < 600)
-            size = 19;
-        else if (ScrollView.Width < 700)
-            size = 22;
-        else if (ScrollView.Width < 800)
-            size = 24;
-        else
-            size = 26;
+
         Alert.FontSize = size;
-        size /= 1.5;
+        size /= 1.2;
         RandomSelectButton.FontSize = size;
         ConfrimSelectButton.FontSize = size;
         SeeMyBoard.FontSize = size;
@@ -490,29 +457,31 @@ public partial class _5x5 : ContentPage
     private void MainLayout_SizeChanged(object sender, EventArgs e)
     {
         if (MainLayout.Width <= 800)
+        {
             MainLayout.Orientation = StackOrientation.Vertical;
+            GridBoard.Margin = 20;
+            GridGameControl.Margin = 20;
+
+        }
         else
+        {
             MainLayout.Orientation = StackOrientation.Horizontal;
-
+            GridBoard.Margin = 0;
+            GridGameControl.Margin = 0;
+        }
         int size;
-         if (MainLayout.Width < 900)
-            size = 401;
-        else if (MainLayout.Width < 1000)
-            size = 450;
-        else if (MainLayout.Width < 1100)
-            size = 500;
-        else if (MainLayout.Width < 1200)
-            size = 550;
-        else if (MainLayout.Width < 1300)
-            size = 600;
-        else if (MainLayout.Width < 1400)
-            size = 650;
+        if (MainLayout.Width > 800)
+        {
+            size = (int)(MainLayout.Width / 2)-20;
+            GridBoard.WidthRequest = size;
+            GridGameControl.WidthRequest = size;
+        }
         else
-            size = 700;
-
-         GridBoard.WidthRequest = size;
-         GridGameControl.WidthRequest = size;
-
+        {
+            GridBoard.WidthRequest = 380;
+            GridGameControl.WidthRequest = 380;
+            ExitButton.WidthRequest = ExitButton.HeightRequest = 80;
+        }
     }
 
     private void RandomSelectButton_Clicked(object sender, EventArgs e)
