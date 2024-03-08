@@ -155,12 +155,21 @@ public partial class _5x5 : ContentPage
                     }
                     else
                     {
-                        //TODO: game for two players
+                        AttackID = "";
+                        AttackCount = 1;
+                        SeeGamingBoard(PlayerTwo, PlayerOne);
+                        PlayerBool = false;
+                        NextPlayerAlert(Settings.LangStringValue(17) + "2");
                     }
                 }
                 else
                 {
-                    //TODO: game for two players
+                    PlayerOne.AttackRandomField(PlayerTwo);
+                    AttackID = "";
+                    AttackCount = 1;
+                    SeeGamingBoard(PlayerOne, PlayerTwo);
+                    PlayerBool = true;
+                    NextPlayerAlert(Settings.LangStringValue(17) + "1");
                 }
             }
         }
@@ -222,7 +231,7 @@ public partial class _5x5 : ContentPage
                     NextPlayerAlert(Settings.LangStringValue(17) + "1");
                 }
             }
-            else if(AttackID.Length > 0)
+            else if(AttackCount == 0)
             {
                 if(PlayerBool == true)
                 {
@@ -238,12 +247,21 @@ public partial class _5x5 : ContentPage
                     }
                     else
                     {
-                        //TODO: game for two players
+                        AttackID = "";
+                        AttackCount = 1;
+                        SeeGamingBoard(PlayerTwo, PlayerOne);
+                        PlayerBool = false;
+                        NextPlayerAlert(Settings.LangStringValue(17) + "2");
                     }
                 }
                 else
                 {
-                    //TODO: game for two players
+                    ConfrimAttack(PlayerOne, PlayerTwo);
+                    AttackID = "";
+                    AttackCount = 1;
+                    SeeGamingBoard(PlayerOne, PlayerTwo);
+                    PlayerBool = true;
+                    NextPlayerAlert(Settings.LangStringValue(17) + "1");
                 }
             }
         }
@@ -350,13 +368,18 @@ public partial class _5x5 : ContentPage
 
     private void NextPlayerAlert(string player)
     {
-
-        ExitButton_Clicked(this, null);
-        YesExit.IsVisible = false;
-        AnnouncementText.Text = player;
-        NoExit.Text = "OK";
-        
-        EndGame();
+        var timer = Dispatcher.CreateTimer();
+        timer.Interval = TimeSpan.FromSeconds(0.1);
+        timer.Tick += (s, e) =>
+        {
+            ExitButton_Clicked(this, null);
+            YesExit.IsVisible = false;
+            AnnouncementText.Text = player;
+            NoExit.Text = "OK";
+            EndGame();
+            timer.Stop();
+        };
+        timer.Start();
     }
 
     private void EndGame()
@@ -368,7 +391,7 @@ public partial class _5x5 : ContentPage
             AnnouncementText.Text = Settings.LangStringValue(19) + "1";
             YesExit.Text = "OK";
         }
-        if(PlayerTwo.HitAttacksID.Count == 9)
+        else if(PlayerTwo.HitAttacksID.Count == 9)
         {
             NoExit.IsVisible = false;
             YesExit.IsVisible = true;

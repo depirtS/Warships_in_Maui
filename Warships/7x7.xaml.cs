@@ -138,6 +138,7 @@ public partial class _7x7 : ContentPage
                         PlayerTwo.SetRandomOwnFields();
                     PlayerBool = true;
                     StepGame = false;
+                    ShipCount = 0;
                     NextPlayerAlert(Settings.LangStringValue(17) + "1");
                 }
             }
@@ -157,12 +158,21 @@ public partial class _7x7 : ContentPage
                     }
                     else
                     {
-                        //TODO: game for two players
+                        AttackID = "";
+                        AttackCount = 1;
+                        SeeGamingBoard(PlayerTwo, PlayerOne);
+                        PlayerBool = false;
+                        NextPlayerAlert(Settings.LangStringValue(17) + "2");
                     }
                 }
                 else
                 {
-                    //TODO: game for two players
+                    PlayerOne.AttackRandomField(PlayerTwo);
+                    AttackID = "";
+                    AttackCount = 1;
+                    SeeGamingBoard(PlayerOne, PlayerTwo);
+                    PlayerBool = true;
+                    NextPlayerAlert(Settings.LangStringValue(17) + "1");
                 }
             }
         }
@@ -225,7 +235,7 @@ public partial class _7x7 : ContentPage
                     NextPlayerAlert(Settings.LangStringValue(17) + "1");
                 }
             }
-            else if (AttackID.Length > 0)
+            else if(AttackCount == 0)
             {
                 if (PlayerBool == true)
                 {
@@ -241,12 +251,21 @@ public partial class _7x7 : ContentPage
                     }
                     else
                     {
-                        //TODO: game for two players
+                        AttackID = "";
+                        AttackCount = 1;
+                        SeeGamingBoard(PlayerTwo, PlayerOne);
+                        PlayerBool = false;
+                        NextPlayerAlert(Settings.LangStringValue(17) + "2");
                     }
                 }
                 else
                 {
-                    //TODO: game for two players
+                    ConfrimAttack(PlayerOne, PlayerTwo);
+                    AttackID = "";
+                    AttackCount = 1;
+                    SeeGamingBoard(PlayerOne, PlayerTwo);
+                    PlayerBool = true;
+                    NextPlayerAlert(Settings.LangStringValue(17) + "1");
                 }
             }
         }
