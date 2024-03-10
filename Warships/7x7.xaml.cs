@@ -22,6 +22,7 @@ public partial class _7x7 : ContentPage
     private int AttackCount { get; set; }
     private List<string> ShipID { get; set; }
     private string AttackID { get; set; }
+    private Dictionary<string, Button> buttonDictionary = new Dictionary<string, Button>();
     protected override bool OnBackButtonPressed()
     {
         ExitButton_Clicked(this, null);
@@ -30,6 +31,7 @@ public partial class _7x7 : ContentPage
     public _7x7(bool bot)
     {
         InitializeComponent();
+        InitalizeBoard();
         NavigationPage.SetHasNavigationBar(this, false);
         Settings = new Settings(0);
         Bot = bot;
@@ -37,6 +39,8 @@ public partial class _7x7 : ContentPage
     }
     private void InitializeValue()
     {
+        DeviceDisplay.MainDisplayInfoChanged += OnOrientationChanged;
+
         StepGame = true;
         PlayerBool = true;
         SeeOwnFields = true;
@@ -67,10 +71,29 @@ public partial class _7x7 : ContentPage
         Timer.Tick += (s, e) =>
         {
             MainLayout_SizeChanged(this, null);
+            ResponsiveFont(this, null);
+            GameControl_ResponsiveFont(this, null);
             StopGame = false;
             Timer.Stop();
         };
         Timer.Start();
+    }
+
+    void OnOrientationChanged(object sender, DisplayInfoChangedEventArgs e)
+    {
+        var orientation = e.DisplayInfo.Orientation;
+        if (orientation == DisplayOrientation.Portrait)
+        {
+            MainLayout_SizeChanged(this, null);
+            ResponsiveFont(this, null);
+            GameControl_ResponsiveFont(this, null);
+        }
+        else if (orientation == DisplayOrientation.Landscape)
+        {
+            MainLayout_SizeChanged(this, null);
+            ResponsiveFont(this, null);
+            GameControl_ResponsiveFont(this, null);
+        }
     }
 
     private void InitalizeTimer()
@@ -82,6 +105,43 @@ public partial class _7x7 : ContentPage
             TimerSetTime();
         };
         Timer.Start();
+    }
+
+    private void InitalizeBoard()
+    {
+        string[] rows = { "A", "B", "C", "D", "E", "F", "G" };
+        string[] cols = { "1", "2", "3", "4", "5", "6", "7" };
+
+        for (int i = 0; i < 7; i++)
+        {
+            for (int j = 0; j < 7; j++)
+            {
+                string buttonName = rows[i] + cols[j];
+                var button = new Button
+                {
+                    Text = buttonName,
+                    StyleId = buttonName,
+                    TextColor = Colors.Transparent,
+                    BackgroundColor = Colors.Gray,
+                    CornerRadius = 3,
+                    MinimumHeightRequest = 0,
+                    MinimumWidthRequest = 0,
+                    BorderWidth = 2,
+                    Margin = new Thickness(1),
+                    Padding = new Thickness(1),
+                    BorderColor = Colors.Black
+            };
+
+                buttonDictionary.Add(button.StyleId, button);
+
+                button.Clicked += Selected_Field;
+
+                GridBoard.Children.Add(button);
+
+                Grid.SetRow(button, i + 1);
+                Grid.SetColumn(button, j + 1);
+            }
+        }
     }
 
     private void TimerSetTime()
@@ -295,7 +355,7 @@ public partial class _7x7 : ContentPage
     {
         if (button.BackgroundColor == Colors.Gray && AttackCount == 0)
         {
-            Button attackButton = this.FindByName<Button>(AttackID);
+            Button attackButton = buttonDictionary[AttackID];
             attackButton.BackgroundColor = Colors.Gray;
             button.BackgroundColor = Colors.Orange;
             AttackID = button.Text;
@@ -368,7 +428,7 @@ public partial class _7x7 : ContentPage
                         break;
                 }
 
-                buttons.Add(this.FindByName<Button>((id + (j + 1)).ToString()));
+                buttons.Add(buttonDictionary[(id + (j + 1)).ToString()]);
             }
         }
 
@@ -377,12 +437,18 @@ public partial class _7x7 : ContentPage
 
     private void NextPlayerAlert(string player)
     {
-        ExitButton_Clicked(this, null);
-        YesExit.IsVisible = false;
-        AnnouncementText.Text = player;
-        NoExit.Text = "OK";
-
-        EndGame();
+        var timer = Dispatcher.CreateTimer();
+        timer.Interval = TimeSpan.FromSeconds(0.01);
+        timer.Tick += (s, e) =>
+        {
+            ExitButton_Clicked(this, null);
+            YesExit.IsVisible = false;
+            AnnouncementText.Text = player;
+            NoExit.Text = "OK";
+            EndGame();
+            timer.Stop();
+        };
+        timer.Start();
     }
 
     private void EndGame()

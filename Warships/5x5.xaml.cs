@@ -20,14 +20,16 @@ public partial class _5x5 : ContentPage
     private int AttackCount { get; set; }
     private List<string> ShipID { get; set; }
     private string AttackID { get; set; }
+    private Dictionary<string, Button> buttonDictionary = new Dictionary<string, Button>();
     protected override bool OnBackButtonPressed()
     {
         ExitButton_Clicked(this,null);
         return true;
     }
-	public _5x5(bool bot)
+    public _5x5(bool bot)
 	{
 		InitializeComponent();
+        InitalizeBoard();
         NavigationPage.SetHasNavigationBar(this, false);
         Settings = new Settings(0);
         Bot = bot;
@@ -35,6 +37,8 @@ public partial class _5x5 : ContentPage
     }
     private void InitializeValue()
     {
+        DeviceDisplay.MainDisplayInfoChanged += OnOrientationChanged;
+
         StepGame = true;
         PlayerBool = true;
         SeeOwnFields = true;
@@ -73,6 +77,23 @@ public partial class _5x5 : ContentPage
         Timer.Start();
     }
 
+    void OnOrientationChanged(object sender, DisplayInfoChangedEventArgs e)
+    {
+        var orientation = e.DisplayInfo.Orientation;
+        if (orientation == DisplayOrientation.Portrait)
+        {
+            MainLayout_SizeChanged(this, null);
+            ResponsiveFont(this, null);
+            GameControl_ResponsiveFont(this, null);
+        }
+        else if (orientation == DisplayOrientation.Landscape)
+        {
+            MainLayout_SizeChanged(this, null);
+            ResponsiveFont(this, null);
+            GameControl_ResponsiveFont(this, null);
+        }
+    }
+
     private void InitalizeTimer()
     {
         Timer = Dispatcher.CreateTimer();
@@ -83,6 +104,44 @@ public partial class _5x5 : ContentPage
         };
         Timer.Start();
     }
+
+        private void InitalizeBoard()
+        {
+
+            string[] rows = { "A", "B", "C", "D", "E" };
+            string[] cols = { "1", "2", "3", "4", "5" };
+
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; j < 5; j++)
+                {
+                    string buttonName = rows[i] + cols[j];
+                    var button = new Button
+                    {
+                        Text = buttonName,
+                        StyleId = buttonName,
+                        TextColor = Colors.Transparent,
+                        BackgroundColor = Colors.Gray,
+                        CornerRadius = 3,
+                        MinimumHeightRequest = 0,
+                        MinimumWidthRequest = 0,
+                        BorderWidth = 2,
+                        Margin = new Thickness(1),
+                        Padding = new Thickness(1),
+                        BorderColor = Colors.Black
+                    };
+
+                    buttonDictionary.Add(button.StyleId, button);
+
+                    button.Clicked += Selected_Field;
+
+                    GridBoard.Children.Add(button);
+
+                    Grid.SetRow(button, i+1);
+                    Grid.SetColumn(button, j+1);
+                }
+            }
+        }
 
     private void TimerSetTime()
     {
@@ -293,7 +352,7 @@ public partial class _5x5 : ContentPage
     {
         if(button.BackgroundColor == Colors.Gray && AttackCount == 0)
         {
-            Button atackButton = this.FindByName<Button>(AttackID);
+            Button atackButton = buttonDictionary[AttackID];
             atackButton.BackgroundColor = Colors.Gray;
             button.BackgroundColor = Colors.Orange;
             AttackID = button.Text;
@@ -360,7 +419,7 @@ public partial class _5x5 : ContentPage
                         break;
                 }
 
-                buttons.Add(this.FindByName<Button>((id + (j + 1)).ToString()));
+                buttons.Add(buttonDictionary[(id + (j + 1)).ToString()]);
             }
         }
 
@@ -370,7 +429,7 @@ public partial class _5x5 : ContentPage
     private void NextPlayerAlert(string player)
     {
         var timer = Dispatcher.CreateTimer();
-        timer.Interval = TimeSpan.FromSeconds(0.1);
+        timer.Interval = TimeSpan.FromSeconds(0.01);
         timer.Tick += (s, e) =>
         {
             ExitButton_Clicked(this, null);

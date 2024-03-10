@@ -11,15 +11,18 @@
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
-            Settings = new Settings(0);
             InitalizeStartValues();
         }
 
         private void InitalizeStartValues()
         {
+
+            Settings = new Settings(0);
             StepMenu = 0;
             SelectedLang = TextPl;
             TextPl.BackgroundColor = Colors.DarkGray;
+            SetMenu();
+            MainGrid_SizeChanged(this, null); ;
         }
         private void GoGameOption(object sender, EventArgs e)
         {
@@ -36,7 +39,6 @@
                 if (TextEn.BackgroundColor == Colors.DarkGray)
                     Settings.SetLangID(1);
 
-                InitalizeChangeLanguages();
                 SetMenu();
             }
             else if(GoGame.Text.Equals(Settings.LangStringValue(2)))

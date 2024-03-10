@@ -12,9 +12,12 @@ namespace Warships
         private static int LangID = -1;
         public Settings(int langID)
         {
+            int preferencesLangID = Preferences.Get("LangID", defaultValue: -1);
+            if(preferencesLangID > -1)
+                LangID = preferencesLangID;
+            else if (LangID == -1)
+                LangID = langID;
             //pl
-            if(LangID == -1)
-            LangID = langID;
             Lang = new string[2, 20];
             Lang[0, 0] = "Graj";
             Lang[0, 1] = "Ustawienia";
@@ -62,6 +65,7 @@ namespace Warships
         public void SetLangID(int lang)
         {
             LangID = lang;
+            Preferences.Set("LangID", lang);
         }
 
         public string selectedLang()
