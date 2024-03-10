@@ -22,7 +22,7 @@ public partial class _7x7 : ContentPage
     private int AttackCount { get; set; }
     private List<string> ShipID { get; set; }
     private string AttackID { get; set; }
-    private Dictionary<string, Button> buttonDictionary = new Dictionary<string, Button>();
+    private Dictionary<string, Button> buttonDictionary { get; set; }
     protected override bool OnBackButtonPressed()
     {
         ExitButton_Clicked(this, null);
@@ -31,7 +31,6 @@ public partial class _7x7 : ContentPage
     public _7x7(bool bot)
     {
         InitializeComponent();
-        InitalizeBoard();
         NavigationPage.SetHasNavigationBar(this, false);
         Settings = new Settings(0);
         Bot = bot;
@@ -39,6 +38,8 @@ public partial class _7x7 : ContentPage
     }
     private void InitializeValue()
     {
+        buttonDictionary = new Dictionary<string, Button>();
+        InitalizeBoard();
         DeviceDisplay.MainDisplayInfoChanged += OnOrientationChanged;
 
         StepGame = true;

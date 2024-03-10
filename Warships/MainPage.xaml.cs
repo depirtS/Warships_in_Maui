@@ -3,6 +3,7 @@
     public partial class MainPage : ContentPage
     {
         private bool PlayerBot { get; set; }
+        private bool WorkMenu {  get; set; }
         private int StepMenu { get; set; }
         private Settings Settings { get; set; }
         private Button SelectedLang { get; set; }
@@ -19,54 +20,89 @@
 
             Settings = new Settings(0);
             StepMenu = 0;
-            SelectedLang = TextPl;
-            TextPl.BackgroundColor = Colors.DarkGray;
+            WorkMenu = true;
+            
+            if(Preferences.Get("LangID", defaultValue: 0) == 0)
+            {
+                TextPl.BackgroundColor = Colors.DarkGray;
+                SelectedLang = TextPl;
+            }
+            else
+            {
+                TextEn.BackgroundColor = Colors.DarkGray;
+                SelectedLang = TextEn;
+            }
             SetMenu();
             MainGrid_SizeChanged(this, null); ;
         }
         private void GoGameOption(object sender, EventArgs e)
         {
-            if (GoGame.Text.Equals(Settings.LangStringValue(0)))
+            if(WorkMenu == true)
             {
-                ReturnButton.IsVisible = true;
-                GoGame.Text = Settings.LangStringValue(2);
-                Setting.Text = Settings.LangStringValue(3);
-            }
-            else if (GoGame.Text.Equals(Settings.LangStringValue(6)))
-            {
-                if (TextPl.BackgroundColor == Colors.DarkGray)
-                    Settings.SetLangID(0);
-                if (TextEn.BackgroundColor == Colors.DarkGray)
-                    Settings.SetLangID(1);
-
-                SetMenu();
-            }
-            else if(GoGame.Text.Equals(Settings.LangStringValue(2)))
-            {
-                PlayerBot = true;
-                ReturnButton.IsVisible = true;
-                GoGame.Text = Settings.LangStringValue(4);
-                Setting.Text = Settings.LangStringValue(5);
-                StepMenu = 1;
-            }
-            else if(GoGame.Text.Equals(Settings.LangStringValue(4)))
-            {
-                if(PlayerBot == true)
+                if (GoGame.Text.Equals(Settings.LangStringValue(0)))
                 {
-                    Navigation.PushModalAsync(new _5x5(PlayerBot));
+                    ReturnButton.IsVisible = true;
+                    GoGame.Text = Settings.LangStringValue(2);
+                    Setting.Text = Settings.LangStringValue(3);
                 }
-                else
+                else if (GoGame.Text.Equals(Settings.LangStringValue(6)))
                 {
-                    Navigation.PushModalAsync(new _5x5(PlayerBot));
+                    if (TextPl.BackgroundColor == Colors.DarkGray)
+                        Settings.SetLangID(0);
+                    if (TextEn.BackgroundColor == Colors.DarkGray)
+                        Settings.SetLangID(1);
+
+                    SetMenu();
+                }
+                else if (GoGame.Text.Equals(Settings.LangStringValue(2)))
+                {
+                    PlayerBot = true;
+                    ReturnButton.IsVisible = true;
+                    GoGame.Text = Settings.LangStringValue(4);
+                    Setting.Text = Settings.LangStringValue(5);
+                    StepMenu = 1;
+                }
+                else if (GoGame.Text.Equals(Settings.LangStringValue(4)))
+                {
+                    if (PlayerBot == true)
+                    {
+                        WorkMenu = false;
+                        Navigation.PushModalAsync(new _5x5(PlayerBot));
+
+                        var timer = Dispatcher.CreateTimer();
+                        timer.Interval = TimeSpan.FromSeconds(3);
+                        timer.Tick += (s, e) =>
+                        {
+                            WorkMenu = true;
+                            timer.Stop();
+                        };
+                        timer.Start();
+                    }
+                    else
+                    {
+                        WorkMenu = false;
+                        Navigation.PushModalAsync(new _5x5(PlayerBot));
+
+                        var timer = Dispatcher.CreateTimer();
+                        timer.Interval = TimeSpan.FromSeconds(3);
+                        timer.Tick += (s, e) =>
+                        {
+                            WorkMenu = true;
+                            timer.Stop();
+                        };
+                        timer.Start();
+                    }
                 }
             }
         }
         private void ReturnMenu(object sender, EventArgs e)
         {
-            if(StepMenu == 0)
-                SetMenu();
-            if (StepMenu == 1)
-                SetMenu(Settings.LangStringValue(2), Settings.LangStringValue(3));
+            if(WorkMenu == true){
+                if (StepMenu == 0)
+                    SetMenu();
+                if (StepMenu == 1)
+                    SetMenu(Settings.LangStringValue(2), Settings.LangStringValue(3));
+            }
         }
         private void SettingOption (object sender, EventArgs e)
         {
@@ -90,11 +126,31 @@
             {
                 if (PlayerBot == true)
                 {
+                    WorkMenu = false;
                     Navigation.PushModalAsync(new _7x7(PlayerBot));
+
+                    var timer = Dispatcher.CreateTimer();
+                    timer.Interval = TimeSpan.FromSeconds(3);
+                    timer.Tick += (s, e) =>
+                    {
+                        WorkMenu = true;
+                        timer.Stop();
+                    };
+                    timer.Start();
                 }
                 else
                 {
+                    WorkMenu = false;
                     Navigation.PushModalAsync(new _7x7(PlayerBot));
+
+                    var timer = Dispatcher.CreateTimer();
+                    timer.Interval = TimeSpan.FromSeconds(3);
+                    timer.Tick += (s, e) =>
+                    {
+                        WorkMenu = true;
+                        timer.Stop();
+                    };
+                    timer.Start();
                 }
             }
         }
