@@ -28,9 +28,18 @@ public partial class PlayerGuide : ContentPage
         int width = (int)MainGrid.Width;
         int height = (int)MainGrid.Height;
         if (width < height)
-            ReturnButton.HeightRequest = ReturnButton.WidthRequest = width/5;
+        {
+            ReturnButton.HeightRequest = ReturnButton.WidthRequest = width / 5;
+            GrayFiled.FontSize = YellowFiled.FontSize = RedFiled.FontSize = DarkRedField.FontSize = OrangeField.FontSize = width / 30;
+            Header.FontSize = width / 20;
+        }
         else
-            ReturnButton.HeightRequest = ReturnButton.WidthRequest = height /5;
+        {
+            ReturnButton.HeightRequest = ReturnButton.WidthRequest = height / 5;
+            GrayFiled.FontSize = YellowFiled.FontSize = RedFiled.FontSize = DarkRedField.FontSize = OrangeField.FontSize = width / 30;
+            Header.FontSize = width / 20;
+
+        }
     }
 
     private void ReturnButton_Clicked(object sender, EventArgs e)
