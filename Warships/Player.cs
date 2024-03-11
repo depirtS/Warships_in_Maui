@@ -12,7 +12,7 @@ namespace Warships
     {
         public int[,] OwnFields { get; set; }
         public List<string> HitAttacksID { get; set; }
-        private bool Board;
+        private int Board;
         Random random;
         //true - 5x5 false - 7x7
         //0 - field not selected
@@ -33,14 +33,6 @@ namespace Warships
                 default: return -1;
             }
         }
-        private int BoardSize()
-        {
-            if (Board)
-                return 5;
-            else
-                return 7;
-        }
-
         public Player(bool board)
         {
             if (board)
@@ -49,6 +41,8 @@ namespace Warships
                 for (int i = 0; i < 5; i++)
                     for (int j = 0; j < 5; j++)
                         OwnFields[i, j] = 0;
+                Board = 5;
+
             }
             else
             {
@@ -56,9 +50,9 @@ namespace Warships
                 for (int i = 0; i < 7; i++)
                     for (int j = 0; j < 7; j++)
                         OwnFields[i, j] = 0;
+                Board = 7;
             }
 
-            Board = board;
             HitAttacksID = new List<string>();
             random = new Random();
         }
@@ -77,12 +71,11 @@ namespace Warships
 
         public void SetRandomOwnFields()
         {
-            int x = BoardSize();
             int FirstID, SecondID;
             do
             {
-                FirstID = random.Next(0, x);
-                SecondID = random.Next(0, x);
+                FirstID = random.Next(0, Board);
+                SecondID = random.Next(0, Board);
             } while (OwnFields[FirstID, SecondID] == 1);
 
             OwnFields[FirstID, SecondID] = 1;
@@ -131,7 +124,7 @@ namespace Warships
 
         public void AttackRandomField(Player player)
         {
-            int x = BoardSize();
+            int x = Board;
             int FirstID, SecondID;
 
             do
