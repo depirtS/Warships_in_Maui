@@ -160,6 +160,7 @@
             Setting.Text = Settings.LangStringValue(1);
             TextPl.Text = Settings.LangStringValue(7);
             TextEn.Text = Settings.LangStringValue(8);
+            PlayerGuide.Text = Settings.LangStringValue(20);
         }
         private void SetMenu()
         {
@@ -202,21 +203,29 @@
         {
             int width = (int)MainGrid.Width;
             int height = (int)MainGrid.Height;
-            if(width < height){
+            if (width < height)
+            {
                 width /= 7;
                 ReturnButton.HeightRequest = ReturnButton.WidthRequest = TextPl.HeightRequest = TextEn.HeightRequest = Setting.HeightRequest = GoGame.HeightRequest = width;
-                TextPl.WidthRequest = TextEn.WidthRequest = Setting.WidthRequest = GoGame.WidthRequest = width*3;
-                TextPl.FontSize = TextEn.FontSize = Setting.FontSize = GoGame.FontSize = width/3;
+                TextPl.WidthRequest = TextEn.WidthRequest = Setting.WidthRequest = GoGame.WidthRequest = width * 3;
+                TextPl.FontSize = TextEn.FontSize = Setting.FontSize = GoGame.FontSize = width / 3;
+                PlayerGuide.WidthRequest = width * 2;
+                PlayerGuide.FontSize = width / 4;
 
             }
             else
             {
                 height /= 7;
                 ReturnButton.HeightRequest = ReturnButton.WidthRequest = TextPl.HeightRequest = TextEn.HeightRequest = Setting.HeightRequest = GoGame.HeightRequest = height;
-                TextPl.WidthRequest = TextEn.WidthRequest = Setting.WidthRequest = GoGame.WidthRequest = height*3;
-                TextPl.FontSize = TextEn.FontSize = Setting.FontSize = GoGame.FontSize = height/3;
-
+                TextPl.WidthRequest = TextEn.WidthRequest = Setting.WidthRequest = GoGame.WidthRequest = height * 3;
+                TextPl.FontSize = TextEn.FontSize = Setting.FontSize = GoGame.FontSize = height / 3;
+                PlayerGuide.WidthRequest = height * 2.5;
+                PlayerGuide.FontSize = height / 4;
             }
+        }
+        private void PlayerGuide_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushModalAsync(new PlayerGuide());
         }
     }
 

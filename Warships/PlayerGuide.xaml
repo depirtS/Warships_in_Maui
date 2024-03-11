@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Warships.PlayerGuide"
+             Title="PlayerGuide">
+    <Grid x:Name="MainGrid" SizeChanged="MainGrid_SizeChanged">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Image Grid.ColumnSpan="4" Source="battleship.png" Aspect="AspectFill"/>
+        <ScrollView Grid.Column="1" Grid.ColumnSpan="3">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.3*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition Height="0.5*"/>
+                </Grid.RowDefinitions>
+
+                <ImageButton 
+                    BackgroundColor="Transparent"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Aspect="AspectFill"
+                    Margin="0,0,20,0"
+                    MinimumHeightRequest="80"
+                    MinimumWidthRequest="80"
+                    Source="ship.png"
+                    x:Name="ReturnButton"
+                    Clicked="ReturnButton_Clicked"/>
+
+                <Label
+                    Grid.ColumnSpan="2"
+                    x:Name="Header"
+                    FontSize="22"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"/>
+
+                <Button
+                    Grid.Row="1"
+                    Style="{StaticResource Filed}"/>
+                <Label
+                    x:Name="GrayFiled"
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    Padding="10"
+                    BackgroundColor="#000000"
+                    Opacity="0.8"/>
+                
+                <Button
+                    Grid.Row="2"
+                    Style="{StaticResource Filed}"
+                    BackgroundColor="Yellow"
+                    />
+                <Label
+                    x:Name="YellowFiled"
+                    Grid.Column="1"
+                    Grid.Row="2"
+                    Padding="10"
+                    BackgroundColor="#000000"
+                    Opacity="0.8"/>
+                
+                <Button
+                    Grid.Row="3"
+                    Style="{StaticResource Filed}"
+                    BackgroundColor="Red"/>
+                <Label
+                    x:Name="RedFiled"
+                    Grid.Column="1"
+                    Grid.Row="3"
+                    Padding="10"
+                    BackgroundColor="#000000"
+                    Opacity="0.8"/>
+                
+                <Button
+                    Grid.Row="4"
+                    Style="{StaticResource Filed}"
+                    BackgroundColor="DarkRed"/>
+                <Label
+                    x:Name="DarkRedField"
+                    Grid.Column="1"
+                    Grid.Row="4"
+                    Padding="10"
+                    BackgroundColor="#000000"
+                    Opacity="0.8"/>
+                
+                <Button
+                    Grid.Row="5"
+                    Style="{StaticResource Filed}"
+                    BackgroundColor="Orange"/>
+                <Label
+                    x:Name="OrangeField"
+                    Grid.Column="1"
+                    Grid.Row="5"
+                    Padding="10"
+                    BackgroundColor="#000000"
+                    Opacity="0.8"/>
+            </Grid>
+        </ScrollView>
+    </Grid>
+</ContentPage>

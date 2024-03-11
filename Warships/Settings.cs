@@ -18,7 +18,7 @@ namespace Warships
             else if (LangID == -1)
                 LangID = langID;
             //pl
-            Lang = new string[2, 20];
+            Lang = new string[2, 26];
             Lang[0, 0] = "Graj";
             Lang[0, 1] = "Ustawienia";
             Lang[0, 2] = "Graj z botem";
@@ -39,6 +39,12 @@ namespace Warships
             Lang[0, 17] = "Tura gracza nr ";
             Lang[0, 18] = "Wybierz pole do zaatakowania";
             Lang[0, 19] = "Wygrywa gracz nr ";
+            Lang[0, 20] = "Jak grać?";
+            Lang[0, 21] = "\nPodstawowe pole, na którym nie dokonano żadnej akcji.";
+            Lang[0, 22] = "Wybieranie planszy\n - wybrane lokalizacje statków. \nPodglądanie planszy\n - pola należące do gracza zawierające statki.";
+            Lang[0, 23] = "Podglądanie planszy\n - pola które zostały zaatakowane przez przeciwnika. \nPlansza ataku wroga\n - pola zaatakowane na których był statek wroga.";
+            Lang[0, 24] = "Plansza ataku wroga\n - pola zaatakowane, na których nie było statku wroga.";
+            Lang[0, 25] = "\n wybrane pole do zaatakowania.";
             //en
             Lang[1, 0] = "Play";
             Lang[1, 1] = "Settings";
@@ -60,6 +66,12 @@ namespace Warships
             Lang[1, 17] = "Player no.'s turn ";
             Lang[1, 18] = "Select field to attack";
             Lang[1, 19] = "Wins player no. ";
+            Lang[1, 20] = "How play?";
+            Lang[1, 21] = "\nA basic field where no action has been taken.";
+            Lang[1, 22] = "Selecting the board\n - selected locations of ships. \nViewing the board\n - fields owned by the player containing ships.";
+            Lang[1, 23] = "Viewing the board\n - fields that were attacked by the enemy. \nEnemy attack board\n - fields attacked on which there was an enemy ship.";
+            Lang[1, 24] = "Enemy attack board\n - attacked fields, where there was no enemy ship.";
+            Lang[1, 25] = "\n selected field to be attacked.";
         }
 
         public void SetLangID(int lang)

@@ -303,6 +303,7 @@ public partial class _5x5 : ContentPage
         Board.SeeGamingBoard(player1, player2);
         Alert.Text = Settings.LangStringValue(15) + " 9";
         NextPlayerAlert(Settings.LangStringValue(17) + playerID);
+        ShipID = new List<string>();
     }
 
     private void PlayerAttack(Player player1, Player player2, string playerID)
