@@ -176,6 +176,7 @@ public partial class _7x7 : ContentPage
                     for (int i = 0; i < 15; i++)
                         PlayerTwo.SetRandomOwnFields();
                     SelectBoardPlayer(PlayerOne, PlayerTwo, "1");
+                    Alert.Text = Settings.LangStringValue(18);
                 }
             }
             else
@@ -249,6 +250,7 @@ public partial class _7x7 : ContentPage
                     PlayerBool = true;
                     StepGame = false;
                     SelectBoardPlayer(PlayerOne, PlayerTwo, "1");
+                    Alert.Text = Settings.LangStringValue(18);
                 }
             }
             else if(AttackCount == 0)
