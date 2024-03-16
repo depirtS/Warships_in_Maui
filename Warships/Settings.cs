@@ -6,10 +6,35 @@ using System.Threading.Tasks;
 
 namespace Warships
 {
+    /// <summary>
+    /// The Settings class is responsible for managing the language settings of the game.
+    /// It provides methods and properties to get and set language preferences, 
+    /// and to retrieve language-specific string values.
+    /// </summary>
     public class Settings
     {
+        /// <summary>
+        /// A two-dimensional string array holding language data.
+        /// The first dimension represents different languages, and the second dimension represents different string values in each language.
+        /// </summary>
         private string[,] Lang;
+
+        /// <summary>
+        /// An integer representing the ID of the currently selected language.
+        /// The default value is -1, which indicates that no language has been selected yet.
+        /// </summary>
         private static int LangID = -1;
+
+        /// <summary>
+        /// Constructor for the Settings class. Initializes the language settings.
+        /// </summary>
+        /// <param name="langID">The identifier for the language to be set.</param>
+        /// <remarks>
+        /// This constructor performs the following actions:
+        /// - Retrieves the stored language ID from the preferences. If a valid language ID is found, it sets the LangID to this value.
+        /// - If no valid language ID is found in the preferences and LangID is still -1, it sets LangID to the provided langID parameter.
+        /// - Initializes the Lang two-dimensional string array with language-specific string values for Polish (pl), English (en), and Italian (it).
+        /// </remarks>
         public Settings(int langID)
         {
             int preferencesLangID = Preferences.Get("LangID", defaultValue: -1);
@@ -18,7 +43,7 @@ namespace Warships
             else if (LangID == -1)
                 LangID = langID;
             //pl
-            Lang = new string[2, 26];
+            Lang = new string[3, 27];
             Lang[0, 0] = "Graj";
             Lang[0, 1] = "Ustawienia";
             Lang[0, 2] = "Graj z botem";
@@ -45,6 +70,7 @@ namespace Warships
             Lang[0, 23] = "Podglądanie planszy\n - pola które zostały zaatakowane przez przeciwnika. \nPlansza ataku wroga\n - pola zaatakowane na których był statek wroga.";
             Lang[0, 24] = "Plansza ataku wroga\n - pola zaatakowane, na których nie było statku wroga.";
             Lang[0, 25] = "\n wybrane pole do zaatakowania.";
+            Lang[0, 26] = "Włoski";
             //en
             Lang[1, 0] = "Play";
             Lang[1, 1] = "Settings";
@@ -72,24 +98,58 @@ namespace Warships
             Lang[1, 23] = "Viewing the board\n - fields that were attacked by the enemy. \nEnemy attack board\n - fields attacked on which there was an enemy ship.";
             Lang[1, 24] = "Enemy attack board\n - attacked fields, where there was no enemy ship.";
             Lang[1, 25] = "\n selected field to be attacked.";
+            Lang[1, 26] = "Italian";
+            //it
+            Lang[2, 0] = "Gioca";
+            Lang[2, 1] = "Le impostadioni";
+            Lang[2, 2] = "Gioca con bot.";
+            Lang[2, 3] = "Bioca con il giocatore";
+            Lang[2, 4] = "Il cartellone 5x5";
+            Lang[2, 5] = "Il cartellone 7x7";
+            Lang[2, 6] = "Accetta";
+            Lang[2, 7] = "Il polaco";
+            Lang[2, 8] = "Il inglese";
+            Lang[2, 9] = "Voi finire il gioco?";
+            Lang[2, 10] = "Si";
+            Lang[2, 11] = "No";
+            Lang[2, 12] = "Scegli acaso";
+            Lang[2, 13] = "Accetta la scelta";
+            Lang[2, 14] = "Visualizza il tuo cartellone";
+            Lang[2, 15] = "Scegli la posizione delle navi: ";
+            Lang[2, 16] = "Visualizza il cartellone del gioco";
+            Lang[2, 17] = "Il turno del giocatore ener. ";
+            Lang[2, 18] = "Scegli il campo del'attacco";
+            Lang[2, 19] = "Vince il giocatore ener. ";
+            Lang[2, 20] = "Come giocare?";
+            Lang[2, 21] = "\nIl campo elementare su quale non e sata svolta nessuna azione.";
+            Lang[2, 22] = "La scelta del cartellone\n - le localizzazioni delle navi scelte. \nGuarda il tuo cartello\n - I campi del giocatore che contengono le navi.";
+            Lang[2, 23] = "Guarda la tua bacheca\n - I campi attaccati dal nemico. \nIl cartello dell'attacco di nemico\n - Le zone attaccate su quali c'era la nave del nemico.";
+            Lang[2, 24] = "Il cartello dell'attacco di nemico\n - Le zone attaccate su quali non c'era la nave del nemico.";
+            Lang[2, 25] = "\n La scelta del campo del'attacco.";
+            Lang[2, 26] = "Il italiano";
         }
 
+        /// <summary>
+        /// Sets the language identifier.
+        /// </summary>
+        /// <param name="lang">The identifier of the language to be set.</param>
+        /// <remarks>
+        /// This method sets the LangID to the provided lang parameter and stores this value in the preferences for future use.
+        /// </remarks>
         public void SetLangID(int lang)
         {
             LangID = lang;
             Preferences.Set("LangID", lang);
         }
 
-        public string selectedLang()
-        {
-            switch (LangID)
-            {
-                case 0: return "pl";
-                case 1: return "en"; 
-                default: throw new ArgumentException("Invalid Language value");
-            }
-        }
-
+        /// <summary>
+        /// Returns a string for the specified value identifier in the currently selected language.
+        /// </summary>
+        /// <param name="ValueID">The identifier of the value for which the string is to be returned.</param>
+        /// <returns>The string corresponding to the specified value identifier in the currently selected language.</returns>
+        /// <remarks>
+        /// This method retrieves the string from the Lang two-dimensional array using the current LangID and the provided ValueID.
+        /// </remarks>
         public string LangStringValue(int ValueID)
         {
             return Lang[LangID, ValueID];
