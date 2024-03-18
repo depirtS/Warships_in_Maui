@@ -24,19 +24,19 @@
 >
 > - polish
 > - english
-> - italien
+> - italian
 > - Languages are set in the settings after switching on the game on the home page.
 >
 
 > 
 > #### How do I install applications?
 >
-> - In order to install the applications, the .NET MAUI framework must be downloaded in Visual Studio and the application must be downloaded to the mobile device or run in windows.
-> - The .NET MAUI framework must be downloaded in Visual Studio.
-> - The repository must be cloned and opened in Visual Studio.
-> - To download the applications to the mobile device, you need to connect the device with a cable to your computer and run the applications on it, selecting it as the location to run the application in Visual Studio.
-> - To make the app work on windows, you need to run it from the project using Visual Studio.
-> - In the future, I plan to add the installation of the game directly from the repository without installing the entire framework along with opening the code.
+> - Files are stored on MEGA
+> - Warship_android.apk - installation file for android.
+> - Run the .apk file on android and install.
+> - Warship_Windows.zip - Windows application folder. Unzip to the location where you want the application files to be located.
+> - Go to the Warships folder. In the folder, doubleclick the Warships.exe file to run the application.
+> - Link to folder on MEGA: https://mega.nz/folder/Z3dyVJZL#nUPTayAZaBSkNKRt7792jg 
 > 
 
 <p>Images are from pixabay.com and have been used under their licence. Images have not been modified.</p>
