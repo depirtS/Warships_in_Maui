@@ -243,8 +243,67 @@ namespace Warships
                 player.HitAttacksID.Add(id + (SecondID + 1).ToString());
             }
             this.OwnFields[FirstID, SecondID] = 2;
-
         }
 
+        /// <summary>
+        /// The MarineRadar function scans the game board of a given player and detects the enemy ships.
+        /// </summary>
+        /// <param name="Player">The player whose game board is to be scanned.</param>
+        /// <returns>A string representation of the sizes and quantities of the detected enemy ships.</returns>
+        /// <remarks>
+        /// This function returns a string that represents the sizes and quantities of the detected enemy ships on the game board.
+        /// Each ship is represented by a series of 'x' characters, where the number of 'x' characters corresponds to the size of the ship.
+        /// The quantity of each size of ship is represented by a number followed by an asterisk (*) before the 'x' characters.
+        /// For example, "2*xx, 1*xxx" means there are two double-sized ships and one triple-sized ship detected on the board.
+        /// </remarks>
+        public string MarineRadar(Player Player)
+        {
+            int[,] checkedFields = new int[Board, Board];
+            Dictionary<int, int> shipSizes = new Dictionary<int, int>();
+            int alphabetID = 0;
+            int numberID = 0;
+            for (int i = 0; i < Board * Board; i++)
+            {
+                if (Player.OwnFields[alphabetID, numberID] == 1 && checkedFields[alphabetID, numberID] != 1)
+                {
+                    int shipSize = 0;
+                    Queue<(int, int)> queue = new Queue<(int, int)>();
+                    queue.Enqueue((alphabetID, numberID));
+                    while (queue.Count > 0)
+                    {
+                        (int x, int y) = queue.Dequeue();
+                        if (x >= 0 && x < Board && y >= 0 && y < Board && Player.OwnFields[x, y] == 1 && checkedFields[x, y] != 1)
+                        {
+                            checkedFields[x, y] = 1;
+                            shipSize++;
+                            queue.Enqueue((x - 1, y));
+                            queue.Enqueue((x + 1, y));
+                            queue.Enqueue((x, y - 1));
+                            queue.Enqueue((x, y + 1));
+                        }
+                    }
+                    if (shipSizes.ContainsKey(shipSize))
+                    {
+                        shipSizes[shipSize]++;
+                    }
+                    else
+                    {
+                        shipSizes.Add(shipSize, 1);
+                    }
+                }
+                numberID++;
+                if (numberID == Board)
+                {
+                    numberID = 0;
+                    alphabetID++;
+                }
+            }
+            string result = "";
+            foreach (var pair in shipSizes)
+            {
+                result += $"{pair.Value}*{new String('x', pair.Key)}, ";
+            }
+            return result.TrimEnd(',', ' ');
+        }
     }
 }

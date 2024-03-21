@@ -190,53 +190,57 @@
         /// </remarks>
         private void SettingOption(object sender, EventArgs e)
         {
-            if (Setting.Text.Equals(Settings.LangStringValue(1)))
+            if (WorkMenu == true)
             {
-                GoGame.Text = Settings.LangStringValue(6);
-                Setting.IsVisible = false;
-                ReturnButton.IsVisible = true;
-                ScrollSettings.IsVisible = true;
-                PlayerGuide.IsVisible = false;
-            }
-            else if (Setting.Text.Equals(Settings.LangStringValue(3)))
-            {
-                StepMenu = 1;
-                PlayerBot = false;
-                ReturnButton.IsVisible = true;
-                GoGame.Text = Settings.LangStringValue(4);
-                Setting.Text = Settings.LangStringValue(5);
-            }
-            else if (Setting.Text.Equals(Settings.LangStringValue(5)))
-            {
-                if (PlayerBot == true)
+                if (Setting.Text.Equals(Settings.LangStringValue(1)))
                 {
-                    WorkMenu = false;
-                    Navigation.PushModalAsync(new _7x7(PlayerBot));
-
-                    var timer = Dispatcher.CreateTimer();
-                    timer.Interval = TimeSpan.FromSeconds(3);
-                    timer.Tick += (s, e) =>
-                    {
-                        WorkMenu = true;
-                        timer.Stop();
-                    };
-                    timer.Start();
+                    GoGame.Text = Settings.LangStringValue(6);
+                    Setting.IsVisible = false;
+                    ReturnButton.IsVisible = true;
+                    ScrollSettings.IsVisible = true;
+                    PlayerGuide.IsVisible = false;
                 }
-                else
+                else if (Setting.Text.Equals(Settings.LangStringValue(3)))
                 {
-                    WorkMenu = false;
-                    Navigation.PushModalAsync(new _7x7(PlayerBot));
-
-                    var timer = Dispatcher.CreateTimer();
-                    timer.Interval = TimeSpan.FromSeconds(3);
-                    timer.Tick += (s, e) =>
+                    StepMenu = 1;
+                    PlayerBot = false;
+                    ReturnButton.IsVisible = true;
+                    GoGame.Text = Settings.LangStringValue(4);
+                    Setting.Text = Settings.LangStringValue(5);
+                }
+                else if (Setting.Text.Equals(Settings.LangStringValue(5)))
+                {
+                    if (PlayerBot == true)
                     {
-                        WorkMenu = true;
-                        timer.Stop();
-                    };
-                    timer.Start();
+                        WorkMenu = false;
+                        Navigation.PushModalAsync(new _7x7(PlayerBot));
+
+                        var timer = Dispatcher.CreateTimer();
+                        timer.Interval = TimeSpan.FromSeconds(3);
+                        timer.Tick += (s, e) =>
+                        {
+                            WorkMenu = true;
+                            timer.Stop();
+                        };
+                        timer.Start();
+                    }
+                    else
+                    {
+                        WorkMenu = false;
+                        Navigation.PushModalAsync(new _7x7(PlayerBot));
+
+                        var timer = Dispatcher.CreateTimer();
+                        timer.Interval = TimeSpan.FromSeconds(3);
+                        timer.Tick += (s, e) =>
+                        {
+                            WorkMenu = true;
+                            timer.Stop();
+                        };
+                        timer.Start();
+                    }
                 }
             }
+
         }
 
         /// <summary>
@@ -373,7 +377,20 @@
         /// </remarks>
         private void PlayerGuide_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushModalAsync(new PlayerGuide());
+            if (WorkMenu)
+            {
+                WorkMenu = false;
+                Navigation.PushModalAsync(new PlayerGuide());
+
+                var timer = Dispatcher.CreateTimer();
+                timer.Interval = TimeSpan.FromSeconds(3);
+                timer.Tick += (s, e) =>
+                {
+                    WorkMenu = true;
+                    timer.Stop();
+                };
+                timer.Start();
+            }
         }
     }
 

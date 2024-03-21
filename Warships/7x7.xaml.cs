@@ -78,6 +78,24 @@ public partial class _7x7 : ContentPage
     private string AttackID { get; set; }
 
     /// <summary>
+    /// Represents the radar data for Player One. 
+    /// This is a string representation of the sizes and quantities of the detected enemy ships on Player One's board.
+    /// Each ship is represented by a series of 'x' characters, where the number of 'x' characters corresponds to the size of the ship.
+    /// The quantity of each size of ship is represented by a number followed by an asterisk (*) before the 'x' characters.
+    /// For example, "2*xx, 1*xxx" means there are two double-sized ships and one triple-sized ship detected on the board.
+    /// </summary>
+    private string playerOneRadard { get; set; }
+
+    /// <summary>
+    /// Represents the radar data for Player Two. 
+    /// This is a string representation of the sizes and quantities of the detected enemy ships on Player Two's board.
+    /// Each ship is represented by a series of 'x' characters, where the number of 'x' characters corresponds to the size of the ship.
+    /// The quantity of each size of ship is represented by a number followed by an asterisk (*) before the 'x' characters.
+    /// For example, "3*xx, 1*xxxx" means there are three double-sized ships and one quadruple-sized ship detected on the board.
+    /// </summary>
+    private string playerTwoRadard { get; set; }
+
+    /// <summary>
     /// A dictionary property storing information about the buttons on the board. The keys are string identifiers and the values are Button objects.
     /// </summary>
     private Dictionary<string, Button> ButtonDictionary { get; set; }
@@ -121,8 +139,10 @@ public partial class _7x7 : ContentPage
     private void InitializeValue()
     {
         ButtonDictionary = new Dictionary<string, Button>();
-        InitalizeBoard();
         DeviceDisplay.MainDisplayInfoChanged += OnOrientationChanged;
+        InitalizeBoard();
+
+        playerOneRadard = playerTwoRadard = Settings.LangStringValue(18);
 
         StepGame = true;
         PlayerBool = true;
@@ -268,6 +288,7 @@ public partial class _7x7 : ContentPage
                 {
                     for (int i = 0; i < 15; i++)
                         PlayerOne.SetRandomOwnFields();
+                    playerTwoRadard += PlayerTwo.MarineRadar(PlayerOne);
                     if (Bot == true)
                     {
                         SelectBoardBot();
@@ -287,7 +308,8 @@ public partial class _7x7 : ContentPage
                     for (int i = 0; i < 15; i++)
                         PlayerTwo.SetRandomOwnFields();
                     SelectBoardPlayer(PlayerOne, PlayerTwo, "1");
-                    Alert.Text = Settings.LangStringValue(18);
+                    playerOneRadard += PlayerOne.MarineRadar(PlayerTwo);
+                    Alert.Text = playerOneRadard;
                 }
             }
             else
@@ -303,6 +325,7 @@ public partial class _7x7 : ContentPage
                     {
                         PlayerAttack(PlayerTwo, PlayerOne, "2");
                         PlayerBool = false;
+                        Alert.Text = playerTwoRadard;
                     }
                 }
                 else
@@ -310,6 +333,7 @@ public partial class _7x7 : ContentPage
                     PlayerOne.AttackRandomField(PlayerTwo);
                     PlayerAttack(PlayerOne, PlayerTwo, "1");
                     PlayerBool = true;
+                    Alert.Text = playerOneRadard;
                 }
             }
         }
@@ -360,6 +384,7 @@ public partial class _7x7 : ContentPage
                 if (PlayerBool == true)
                 {
                     Board.ConfrimSelect(PlayerOne, ShipID);
+                    playerTwoRadard += PlayerTwo.MarineRadar(PlayerOne);
                     if (Bot == true)
                     {
                         SelectBoardBot();
@@ -377,7 +402,8 @@ public partial class _7x7 : ContentPage
                     PlayerBool = true;
                     StepGame = false;
                     SelectBoardPlayer(PlayerOne, PlayerTwo, "1");
-                    Alert.Text = Settings.LangStringValue(18);
+                    playerOneRadard += PlayerOne.MarineRadar(PlayerTwo);
+                    Alert.Text = playerOneRadard;
                 }
             }
             else if (AttackCount == 0)
@@ -393,6 +419,7 @@ public partial class _7x7 : ContentPage
                     {
                         PlayerAttack(PlayerTwo, PlayerOne, "2");
                         PlayerBool = false;
+                        Alert.Text = playerTwoRadard;
                     }
                 }
                 else
@@ -400,6 +427,7 @@ public partial class _7x7 : ContentPage
                     Board.ConfrimAttack(PlayerOne, PlayerTwo, AttackID);
                     PlayerAttack(PlayerOne, PlayerTwo, "1");
                     PlayerBool = true;
+                    Alert.Text = playerOneRadard;
                 }
             }
         }
@@ -424,7 +452,7 @@ public partial class _7x7 : ContentPage
         ShipCount = 0;
         for (int i = 0; i < 15; i++)
             PlayerTwo.SetRandomOwnFields();
-        Alert.Text = Settings.LangStringValue(18);
+        Alert.Text = Settings.LangStringValue(18) + PlayerOne.MarineRadar(PlayerTwo);
         NextPlayerAlert(Settings.LangStringValue(17) + "1");
     }
 

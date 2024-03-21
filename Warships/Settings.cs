@@ -43,7 +43,7 @@ namespace Warships
             else if (LangID == -1)
                 LangID = langID;
             //pl
-            Lang = new string[3, 27];
+            Lang = new string[3, 28];
             Lang[0, 0] = "Graj";
             Lang[0, 1] = "Ustawienia";
             Lang[0, 2] = "Graj z botem";
@@ -62,7 +62,7 @@ namespace Warships
             Lang[0, 15] = "Wybierz rozmieszczenie statków: ";
             Lang[0, 16] = "Wyświetl plansze do gry";
             Lang[0, 17] = "Tura gracza nr ";
-            Lang[0, 18] = "Wybierz pole do zaatakowania";
+            Lang[0, 18] = "Radar morski: ";
             Lang[0, 19] = "Wygrywa gracz nr ";
             Lang[0, 20] = "Jak grać?";
             Lang[0, 21] = "\nPodstawowe pole, na którym nie dokonano żadnej akcji.";
@@ -71,6 +71,7 @@ namespace Warships
             Lang[0, 24] = "Plansza ataku wroga\n - pola zaatakowane, na których nie było statku wroga.";
             Lang[0, 25] = "\n wybrane pole do zaatakowania.";
             Lang[0, 26] = "Włoski";
+            Lang[0, 27] = "\n Radar morski - Każdy statek jest reprezentowany przez serię znaków \"x\", gdzie liczba znaków \"x\" odpowiada rozmiarowi statku. Ilość statków każdego rozmiaru jest reprezentowana przez liczbę, po której następuje gwiazdka (*) przed znakami \"x\". Na przykład \"3*xx, 1*xxxx\" oznacza, że na planszy wroga wykryto trzy statki podwójnego rozmiaru i jeden statek poczwórnego rozmiaru.";
             //en
             Lang[1, 0] = "Play";
             Lang[1, 1] = "Settings";
@@ -90,7 +91,7 @@ namespace Warships
             Lang[1, 15] = "Select ship placement: ";
             Lang[1, 16] = "View your game board";
             Lang[1, 17] = "Player no.'s turn ";
-            Lang[1, 18] = "Select field to attack";
+            Lang[1, 18] = "Marine radar:";
             Lang[1, 19] = "Wins player no. ";
             Lang[1, 20] = "How play?";
             Lang[1, 21] = "\nA basic field where no action has been taken.";
@@ -99,6 +100,7 @@ namespace Warships
             Lang[1, 24] = "Enemy attack board\n - attacked fields, where there was no enemy ship.";
             Lang[1, 25] = "\n selected field to be attacked.";
             Lang[1, 26] = "Italian";
+            Lang[1, 27] = "\n Marine radar - Each ship is represented by a series of 'x' characters, where the number of 'x' characters corresponds to the size of the ship. The quantity of each size of ship is represented by a number followed by an asterisk (*) before the 'x' characters. For example, \"3*xx, 1*xxxx\" means there are three double-sized ships and one quadruple-sized ship detected on the enemy board.";
             //it
             Lang[2, 0] = "Gioca";
             Lang[2, 1] = "Le impostadioni";
@@ -118,7 +120,7 @@ namespace Warships
             Lang[2, 15] = "Scegli la posizione delle navi: ";
             Lang[2, 16] = "Visualizza il cartellone del gioco";
             Lang[2, 17] = "Il turno del giocatore ener. ";
-            Lang[2, 18] = "Scegli il campo del'attacco";
+            Lang[2, 18] = "Radar marino: ";
             Lang[2, 19] = "Vince il giocatore ener. ";
             Lang[2, 20] = "Come giocare?";
             Lang[2, 21] = "\nIl campo elementare su quale non e sata svolta nessuna azione.";
@@ -127,6 +129,7 @@ namespace Warships
             Lang[2, 24] = "Il cartello dell'attacco di nemico\n - Le zone attaccate su quali non c'era la nave del nemico.";
             Lang[2, 25] = "\n La scelta del campo del'attacco.";
             Lang[2, 26] = "Il italiano";
+            Lang[2, 27] = "\n Radar marino - Ogni nave è rappresentata da una serie di caratteri \"x\", dove il numero di caratteri \"x\" corrisponde alla dimensione della nave. La quantità di ogni dimensione di nave è rappresentata da un numero seguito da un asterisco (*) prima dei caratteri \"x\". Ad esempio, \"3*xx, 1*xxxx\" significa che sono state rilevate tre navi di dimensioni doppie e una nave di dimensioni quadruple sul tabellone nemico.";
         }
 
         /// <summary>

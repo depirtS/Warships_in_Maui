@@ -39,11 +39,12 @@ public partial class PlayerGuide : ContentPage
     private void InitializeLanguage()
     {
         Header.Text = Settings.LangStringValue(20);
-        GrayFiled.Text = Settings.LangStringValue(21);
-        YellowFiled.Text = Settings.LangStringValue(22);
-        RedFiled.Text = Settings.LangStringValue(23);
+        GrayField.Text = Settings.LangStringValue(21);
+        YellowField.Text = Settings.LangStringValue(22);
+        RedField.Text = Settings.LangStringValue(23);
         DarkRedField.Text = Settings.LangStringValue(24);
         OrangeField.Text = Settings.LangStringValue(25);
+        TransparentField.Text = Settings.LangStringValue(27);
     }
 
     /// <summary>
@@ -60,13 +61,13 @@ public partial class PlayerGuide : ContentPage
         if (width < height)
         {
             ReturnButton.HeightRequest = ReturnButton.WidthRequest = width / 5;
-            GrayFiled.FontSize = YellowFiled.FontSize = RedFiled.FontSize = DarkRedField.FontSize = OrangeField.FontSize = width / 30;
+            GrayField.FontSize = YellowField.FontSize = RedField.FontSize = DarkRedField.FontSize = OrangeField.FontSize = TransparentField.FontSize = TransparentButton.FontSize = width / 30;
             Header.FontSize = width / 20;
         }
         else
         {
             ReturnButton.HeightRequest = ReturnButton.WidthRequest = height / 5;
-            GrayFiled.FontSize = YellowFiled.FontSize = RedFiled.FontSize = DarkRedField.FontSize = OrangeField.FontSize = width / 30;
+            GrayField.FontSize = YellowField.FontSize = RedField.FontSize = DarkRedField.FontSize = OrangeField.FontSize = TransparentField.FontSize = TransparentButton.FontSize = width / 30;
             Header.FontSize = width / 20;
 
         }
